@@ -3,13 +3,13 @@
 </div>
 
 <div align="center">
-    <strong>A CLI application for administrators to manage vaccine availabilities and other data for the Vaccine Hunters Finder tool.</strong>
+    <strong>A CLI for administrators to manage vaccine availabilities and other data for the Vaccine Hunters Finder tool.</strong>
 </div>
 
 <br/>
 
 <div align="center">
-    <a href="">
+    <a href="https://golang.org/dl/">
         <img src="https://img.shields.io/github/go-mod/go-version/Vaccine-Hunters-Canada/VaxFinder-admin-cli" alt="Go v1.16">
     </a>
     <a href="https://goreportcard.com/report/github.com/Vaccine-Hunters-Canada/VaxFinder-admin-cli">
