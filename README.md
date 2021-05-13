@@ -9,6 +9,12 @@
 <br/>
 
 <div align="center">
+    <a href="">
+        <img src="https://img.shields.io/github/go-mod/go-version/Vaccine-Hunters-Canada/VaxFinder-admin-cli" alt="Go v1.16">
+    </a>
+    <a href="https://goreportcard.com/report/github.com/Vaccine-Hunters-Canada/VaxFinder-admin-cli">
+        <img src="https://goreportcard.com/badge/github.com/Vaccine-Hunters-Canada/VaxFinder-admin-cli" alt="Go Report Card">
+    </a>
     <a href="https://discord.com/channels/822486436837326908/832366009091358731">
         <img src="https://img.shields.io/badge/-%23vax--ui--backend-7389D8?logo=discord&logoColor=ffffff&labelColor=6A7EC2" alt="Discord: #vax-ui-backend" />
     </a>
