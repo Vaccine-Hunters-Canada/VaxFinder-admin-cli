@@ -10,14 +10,12 @@ import (
 var vaCmd = &cobra.Command{
 	Use:   "va",
 	Short: "Manage vaccine availabilities",
-	Long:  ``,
 }
 
 // Command: vf-admin va get
 var vaRetrieveCmd = &cobra.Command{
 	Use:   "get",
 	Short: "Retrieve a vaccine availability with a specified id",
-	Long:  ``,
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 1 {
 			return errors.New("requires an id as an argument")
@@ -33,7 +31,6 @@ var vaRetrieveCmd = &cobra.Command{
 var vaListCmd = &cobra.Command{
 	Use:   "list",
 	Short: "Retrieve a list of vaccine availabilities within the vicinity of a postal code",
-	Long:  ``,
 	Args: func(cmd *cobra.Command, args []string) error {
 		if len(args) < 1 {
 			return errors.New("requires a postal code argument")
@@ -49,7 +46,6 @@ var vaListCmd = &cobra.Command{
 var vaAddCmd = &cobra.Command{
 	Use:   "add",
 	Short: "Add a new vaccine availability",
-	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 		color.Green("TODO")
 	},
@@ -59,7 +55,6 @@ var vaAddCmd = &cobra.Command{
 var vaUpdateCmd = &cobra.Command{
 	Use:   "update",
 	Short: "Update a vaccine availability with a specified id",
-	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 		color.Green("TODO")
 	},
@@ -69,14 +64,13 @@ var vaUpdateCmd = &cobra.Command{
 var vaRemoveCmd = &cobra.Command{
 	Use:   "remove",
 	Short: "Remove a vaccine availability with a specified id",
-	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
 		color.Green("TODO")
 	},
 }
 
 func init() {
-	rootCmd.AddCommand(vaCmd)
+	RootCmd.AddCommand(vaCmd)
 	vaCmd.AddCommand(vaRetrieveCmd)
 	vaCmd.AddCommand(vaListCmd)
 	vaCmd.AddCommand(vaAddCmd)

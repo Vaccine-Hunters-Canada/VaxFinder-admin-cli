@@ -1,5 +1,5 @@
 output:
-    api/client.gen.go
+    internal/api/client.gen.go
 package: api
 generate:
     - types
