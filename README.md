@@ -64,33 +64,31 @@ It's possible to disable hooks temporarily, but it isn't recommended.
 $ SKIP=go-fmt,go-vet,go-lint git commit -m <message>
 ```
 
-### Adding New Commands
-
-To create a top-level command, run the command below and then delete the file header at the top of the newly created Go file. Learn more [here](https://github.com/spf13/cobra/blob/master/cobra/README.md#cobra-add).
-```
-cobra add <command>
-```
-
-### Generating an OpenAPI Client
-
-```
-oapi-codegen -config=./.oapi-codegen.yaml https://vax-availability-api.azurewebsites.net/openapi.json
-```
-
-**After running this command, you may find that there is an issue.** This is discussed [here](https://github.com/deepmap/oapi-codegen/issues/343). In the meantime, manually fix the issue on line ~28 at `api/client.gen.go` by replacing `InputTypeEnum InputTypeEnum = 1` with `InputTypeEnum0 InputTypeEnum = 1`.
-
-
 ### Running locally
 
-```
+```bash
 go run main.go help
 ```
 
 You can also install the application locally which is how it is expected to be used in production. In order to do this, you must first set `GOPATH` and `GOBIN` appropriately. _If they are not set, add this to your `.bashrc` or `.bash_profile` etc. AND open new terminal._
 
-```
-go install
+```bash
+make install
 vf-admin help
+```
+
+### Generating an OpenAPI Client
+
+```bash
+make api-codegen
+```
+
+**After running this command, you may find that there is an issue.** This is discussed [here](https://github.com/deepmap/oapi-codegen/issues/343). In the meantime, manually fix the issue on line ~28 at `internal/api/client.gen.go` by replacing `InputTypeEnum InputTypeEnum = 1` with `InputTypeEnum0 InputTypeEnum = 1`.
+
+### Generating Docs Automatically
+
+```bash
+make docs
 ```
 
 ## How to install

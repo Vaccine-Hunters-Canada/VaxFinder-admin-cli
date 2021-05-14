@@ -180,76 +180,95 @@ type RequirementsUpdateRequest struct {
 
 // VaccineAvailabilityCreateRequest defines model for VaccineAvailabilityCreateRequest.
 type VaccineAvailabilityCreateRequest struct {
-	Date *openapi_types.Date `json:"date,omitempty"`
+	Date time.Time `json:"date"`
 
 	// An enumeration.
-	InputType       *InputTypeEnum `json:"inputType,omitempty"`
-	Location        int            `json:"location"`
-	NumberAvailable *int           `json:"numberAvailable,omitempty"`
-	NumberTotal     *int           `json:"numberTotal,omitempty"`
-	Tags            *string        `json:"tags,omitempty"`
-	Vaccine         *int           `json:"vaccine,omitempty"`
+	InputType       InputTypeEnum `json:"inputType"`
+	Location        int           `json:"location"`
+	NumberAvailable int           `json:"numberAvailable"`
+	NumberTotal     *int          `json:"numberTotal,omitempty"`
+	Tags            *string       `json:"tags,omitempty"`
+	Vaccine         *int          `json:"vaccine,omitempty"`
 }
 
 // VaccineAvailabilityExpandedResponse defines model for VaccineAvailabilityExpandedResponse.
 type VaccineAvailabilityExpandedResponse struct {
-	CreatedAt time.Time           `json:"createdAt"`
-	Date      *openapi_types.Date `json:"date,omitempty"`
-	Id        interface{}         `json:"id"`
+	CreatedAt time.Time `json:"createdAt"`
+	Date      time.Time `json:"date"`
+	Id        string    `json:"id"`
 
 	// An enumeration.
-	InputType       *InputTypeEnum                        `json:"inputType,omitempty"`
-	Location        LocationExpandedResponse              `json:"location"`
-	NumberAvailable *int                                  `json:"numberAvailable,omitempty"`
-	NumberTotal     *int                                  `json:"numberTotal,omitempty"`
-	Tags            *string                               `json:"tags,omitempty"`
-	Timeslots       []VaccineAvailabilityTimeslotResponse `json:"timeslots"`
-	Vaccine         *int                                  `json:"vaccine,omitempty"`
+	InputType       InputTypeEnum                             `json:"inputType"`
+	Location        LocationExpandedResponse                  `json:"location"`
+	NumberAvailable int                                       `json:"numberAvailable"`
+	NumberTotal     *int                                      `json:"numberTotal,omitempty"`
+	Requirements    []VaccineAvailabilityRequirementsResponse `json:"requirements"`
+	Tags            *string                                   `json:"tags,omitempty"`
+	Timeslots       []VaccineAvailabilityTimeslotResponse     `json:"timeslots"`
+	Vaccine         *int                                      `json:"vaccine,omitempty"`
 }
 
-// VaccineAvailabilityRequirementsCreateRequest defines model for VaccineAvailabilityRequirementsCreateRequest.
-type VaccineAvailabilityRequirementsCreateRequest struct {
-	Requirements []int `json:"requirements"`
+// VaccineAvailabilityRequirementCreateRequest defines model for VaccineAvailabilityRequirementCreateRequest.
+type VaccineAvailabilityRequirementCreateRequest struct {
+	Requirement int `json:"requirement"`
+}
+
+// VaccineAvailabilityRequirementUpdateRequest defines model for VaccineAvailabilityRequirementUpdateRequest.
+type VaccineAvailabilityRequirementUpdateRequest struct {
+	Active      bool `json:"active"`
+	Requirement int  `json:"requirement"`
 }
 
 // VaccineAvailabilityRequirementsResponse defines model for VaccineAvailabilityRequirementsResponse.
 type VaccineAvailabilityRequirementsResponse struct {
 	Active              bool      `json:"active"`
 	CreatedAt           time.Time `json:"createdAt"`
-	Id                  int       `json:"id"`
+	Description         string    `json:"description"`
+	Id                  string    `json:"id"`
+	Name                string    `json:"name"`
 	Requirement         int       `json:"requirement"`
 	VaccineAvailability string    `json:"vaccineAvailability"`
 }
 
-// VaccineAvailabilityRequirementsUpdateRequest defines model for VaccineAvailabilityRequirementsUpdateRequest.
-type VaccineAvailabilityRequirementsUpdateRequest struct {
-	Active bool `json:"active"`
-}
-
 // VaccineAvailabilityResponse defines model for VaccineAvailabilityResponse.
 type VaccineAvailabilityResponse struct {
-	CreatedAt time.Time           `json:"createdAt"`
-	Date      *openapi_types.Date `json:"date,omitempty"`
-	Id        string              `json:"id"`
+	CreatedAt time.Time `json:"createdAt"`
+	Date      time.Time `json:"date"`
+	Id        string    `json:"id"`
 
 	// An enumeration.
-	InputType       *InputTypeEnum `json:"inputType,omitempty"`
-	Location        int            `json:"location"`
-	NumberAvailable *int           `json:"numberAvailable,omitempty"`
-	NumberTotal     *int           `json:"numberTotal,omitempty"`
-	Tags            *string        `json:"tags,omitempty"`
-	Vaccine         *int           `json:"vaccine,omitempty"`
+	InputType       InputTypeEnum `json:"inputType"`
+	Location        int           `json:"location"`
+	NumberAvailable int           `json:"numberAvailable"`
+	NumberTotal     *int          `json:"numberTotal,omitempty"`
+	Tags            *string       `json:"tags,omitempty"`
+	Vaccine         *int          `json:"vaccine,omitempty"`
 }
 
 // VaccineAvailabilityTimeslotCreateRequest defines model for VaccineAvailabilityTimeslotCreateRequest.
 type VaccineAvailabilityTimeslotCreateRequest struct {
-	ParentID string    `json:"parentID"`
-	Time     time.Time `json:"time"`
+	Time time.Time `json:"time"`
+}
+
+// VaccineAvailabilityTimeslotRequirementExpandedResponse defines model for VaccineAvailabilityTimeslotRequirementExpandedResponse.
+type VaccineAvailabilityTimeslotRequirementExpandedResponse struct {
+	CreatedAt time.Time `json:"createdAt"`
+	Date      time.Time `json:"date"`
+	Id        string    `json:"id"`
+
+	// An enumeration.
+	InputType       InputTypeEnum                             `json:"inputType"`
+	Location        int                                       `json:"location"`
+	NumberAvailable int                                       `json:"numberAvailable"`
+	NumberTotal     *int                                      `json:"numberTotal,omitempty"`
+	Requirements    []VaccineAvailabilityRequirementsResponse `json:"requirements"`
+	Tags            *string                                   `json:"tags,omitempty"`
+	Timeslots       []VaccineAvailabilityTimeslotResponse     `json:"timeslots"`
+	Vaccine         *int                                      `json:"vaccine,omitempty"`
 }
 
 // VaccineAvailabilityTimeslotResponse defines model for VaccineAvailabilityTimeslotResponse.
 type VaccineAvailabilityTimeslotResponse struct {
-	Active              bool       `json:"active"`
 	CreatedAt           time.Time  `json:"createdAt"`
 	Id                  string     `json:"id"`
 	TakenAt             *time.Time `json:"takenAt,omitempty"`
@@ -259,21 +278,37 @@ type VaccineAvailabilityTimeslotResponse struct {
 
 // VaccineAvailabilityTimeslotUpdateRequest defines model for VaccineAvailabilityTimeslotUpdateRequest.
 type VaccineAvailabilityTimeslotUpdateRequest struct {
-	TakenAt *time.Time `json:"takenAt,omitempty"`
+	TakenAt *interface{} `json:"takenAt,omitempty"`
+	Time    time.Time    `json:"time"`
 }
 
 // VaccineAvailabilityUpdateRequest defines model for VaccineAvailabilityUpdateRequest.
 type VaccineAvailabilityUpdateRequest struct {
-	Date *openapi_types.Date `json:"date,omitempty"`
-	Id   interface{}         `json:"id"`
+	Date time.Time `json:"date"`
 
 	// An enumeration.
-	InputType       *InputTypeEnum `json:"inputType,omitempty"`
-	Location        int            `json:"location"`
-	NumberAvailable *int           `json:"numberAvailable,omitempty"`
-	NumberTotal     *int           `json:"numberTotal,omitempty"`
-	Tags            *string        `json:"tags,omitempty"`
-	Vaccine         *int           `json:"vaccine,omitempty"`
+	InputType       InputTypeEnum `json:"inputType"`
+	Location        int           `json:"location"`
+	NumberAvailable int           `json:"numberAvailable"`
+	NumberTotal     *int          `json:"numberTotal,omitempty"`
+	Tags            *string       `json:"tags,omitempty"`
+	Vaccine         *int          `json:"vaccine,omitempty"`
+}
+
+// VaccineLocationExpandedResponse defines model for VaccineLocationExpandedResponse.
+type VaccineLocationExpandedResponse struct {
+	Active                int                                                      `json:"active"`
+	Address               *AddressResponse                                         `json:"address,omitempty"`
+	CreatedAt             time.Time                                                `json:"createdAt"`
+	Id                    int                                                      `json:"id"`
+	Name                  string                                                   `json:"name"`
+	Notes                 *string                                                  `json:"notes,omitempty"`
+	Organization          *OrganizationResponse                                    `json:"organization,omitempty"`
+	Phone                 *string                                                  `json:"phone,omitempty"`
+	Postcode              *string                                                  `json:"postcode,omitempty"`
+	Tags                  *string                                                  `json:"tags,omitempty"`
+	Url                   *string                                                  `json:"url,omitempty"`
+	VaccineAvailabilities []VaccineAvailabilityTimeslotRequirementExpandedResponse `json:"vaccineAvailabilities"`
 }
 
 // ValidationError defines model for ValidationError.
@@ -310,10 +345,10 @@ type UpdateRequirementApiV1RequirementsRequirementIdPutJSONBody RequirementsUpda
 // ListVaccineAvailabilityApiV1VaccineAvailabilityGetParams defines parameters for ListVaccineAvailabilityApiV1VaccineAvailabilityGet.
 type ListVaccineAvailabilityApiV1VaccineAvailabilityGetParams struct {
 
-	// **Search for vaccine availabilities after a certain date and time (UTC)**. The default value is the current date and time (UTC).<br/><br/>Valid example(s): *2021-05-05T21:59:02.961804+00:00*
-	MinDate *time.Time `json:"min_date,omitempty"`
+	// **Search for vaccine availabilities after a certain date and time (UTC) in the format YYYY-MM-DD**. The default value is the current date (UTC).<br/><br/>Valid example(s): *2021-05-30*
+	MinDate *openapi_types.Date `json:"min_date,omitempty"`
 
-	// **Search for vaccine availabilities within the vicinity of a postal code.**<br/><br/>Valid example(s): *K1A; K1A0; K1A0k; K1A0K9*
+	// **Search for vaccine availabilities within the vicinity of a postal code. (First 3 characters ONLY)**<br/><br/>Valid example(s): *K1A; M5V;*
 	PostalCode string `json:"postal_code"`
 }
 
@@ -324,16 +359,29 @@ type CreateVaccineAvailabilityApiV1VaccineAvailabilityPostJSONBody VaccineAvaila
 type UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutJSONBody VaccineAvailabilityUpdateRequest
 
 // CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostJSONBody defines parameters for CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPost.
-type CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostJSONBody VaccineAvailabilityRequirementsCreateRequest
+type CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostJSONBody VaccineAvailabilityRequirementCreateRequest
 
 // UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutJSONBody defines parameters for UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPut.
-type UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutJSONBody VaccineAvailabilityRequirementsUpdateRequest
+type UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutJSONBody VaccineAvailabilityRequirementUpdateRequest
 
 // CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPostJSONBody defines parameters for CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPost.
 type CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPostJSONBody VaccineAvailabilityTimeslotCreateRequest
 
 // UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutJSONBody defines parameters for UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPut.
 type UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutJSONBody VaccineAvailabilityTimeslotUpdateRequest
+
+// ListVaccineLocationsApiV1VaccineLocationsGetParams defines parameters for ListVaccineLocationsApiV1VaccineLocationsGet.
+type ListVaccineLocationsApiV1VaccineLocationsGetParams struct {
+
+	// **Search for vaccine availabilities after a certain date and time (UTC) in the format YYYY-MM-DD**. The default value is the current date (UTC).<br/><br/>Valid example(s): *2021-05-30*
+	MinDate *openapi_types.Date `json:"min_date,omitempty"`
+
+	// **Search for vaccine availabilities within the vicinity of a postal code. (First 3 characters ONLY)**<br/><br/>Valid example(s): *K1A; M5V;*
+	PostalCode string `json:"postal_code"`
+
+	// **Include Vaccine Availabilities with no remaining vaccines**<br/><br/>Valid example(s): *true; false;*
+	IncludeEmpty *bool `json:"include_empty,omitempty"`
+}
 
 // CreateAddressApiV1AddressesPostJSONRequestBody defines body for CreateAddressApiV1AddressesPost for application/json ContentType.
 type CreateAddressApiV1AddressesPostJSONRequestBody CreateAddressApiV1AddressesPostJSONBody
@@ -535,15 +583,15 @@ type ClientInterface interface {
 	CreateVaccineAvailabilityApiV1VaccineAvailabilityPost(ctx context.Context, body CreateVaccineAvailabilityApiV1VaccineAvailabilityPostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDelete request
-	DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDelete(ctx context.Context, vaccineAvailabilityId int, reqEditors ...RequestEditorFn) (*http.Response, error)
+	DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDelete(ctx context.Context, vaccineAvailabilityId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdGet request
 	RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdGet(ctx context.Context, vaccineAvailabilityId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPut request  with any body
-	UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutWithBody(ctx context.Context, vaccineAvailabilityId int, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutWithBody(ctx context.Context, vaccineAvailabilityId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
-	UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPut(ctx context.Context, vaccineAvailabilityId int, body UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+	UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPut(ctx context.Context, vaccineAvailabilityId string, body UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// ListRequirementsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsGet request
 	ListRequirementsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsGet(ctx context.Context, vaccineAvailabilityId string, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -552,6 +600,9 @@ type ClientInterface interface {
 	CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostWithBody(ctx context.Context, vaccineAvailabilityId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPost(ctx context.Context, vaccineAvailabilityId string, body CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDelete request
+	DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDelete(ctx context.Context, vaccineAvailabilityId string, requirementId string, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	// UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPut request  with any body
 	UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutWithBody(ctx context.Context, vaccineAvailabilityId string, requirementId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
@@ -566,10 +617,16 @@ type ClientInterface interface {
 
 	CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPost(ctx context.Context, vaccineAvailabilityId string, body CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
 
+	// DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDelete request
+	DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDelete(ctx context.Context, vaccineAvailabilityId string, timeslotId string, reqEditors ...RequestEditorFn) (*http.Response, error)
+
 	// UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPut request  with any body
 	UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutWithBody(ctx context.Context, vaccineAvailabilityId string, timeslotId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error)
 
 	UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPut(ctx context.Context, vaccineAvailabilityId string, timeslotId string, body UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error)
+
+	// ListVaccineLocationsApiV1VaccineLocationsGet request
+	ListVaccineLocationsApiV1VaccineLocationsGet(ctx context.Context, params *ListVaccineLocationsApiV1VaccineLocationsGetParams, reqEditors ...RequestEditorFn) (*http.Response, error)
 }
 
 func (c *Client) ListAddressesApiV1AddressesGet(ctx context.Context, reqEditors ...RequestEditorFn) (*http.Response, error) {
@@ -944,7 +1001,7 @@ func (c *Client) CreateVaccineAvailabilityApiV1VaccineAvailabilityPost(ctx conte
 	return c.Client.Do(req)
 }
 
-func (c *Client) DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDelete(ctx context.Context, vaccineAvailabilityId int, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDelete(ctx context.Context, vaccineAvailabilityId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewDeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteRequest(c.Server, vaccineAvailabilityId)
 	if err != nil {
 		return nil, err
@@ -968,7 +1025,7 @@ func (c *Client) RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineA
 	return c.Client.Do(req)
 }
 
-func (c *Client) UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutWithBody(ctx context.Context, vaccineAvailabilityId int, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutWithBody(ctx context.Context, vaccineAvailabilityId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewUpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutRequestWithBody(c.Server, vaccineAvailabilityId, contentType, body)
 	if err != nil {
 		return nil, err
@@ -980,7 +1037,7 @@ func (c *Client) UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailab
 	return c.Client.Do(req)
 }
 
-func (c *Client) UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPut(ctx context.Context, vaccineAvailabilityId int, body UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
+func (c *Client) UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPut(ctx context.Context, vaccineAvailabilityId string, body UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewUpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutRequest(c.Server, vaccineAvailabilityId, body)
 	if err != nil {
 		return nil, err
@@ -1018,6 +1075,18 @@ func (c *Client) CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabi
 
 func (c *Client) CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPost(ctx context.Context, vaccineAvailabilityId string, body CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewCreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostRequest(c.Server, vaccineAvailabilityId, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDelete(ctx context.Context, vaccineAvailabilityId string, requirementId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteRequest(c.Server, vaccineAvailabilityId, requirementId)
 	if err != nil {
 		return nil, err
 	}
@@ -1088,6 +1157,18 @@ func (c *Client) CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilit
 	return c.Client.Do(req)
 }
 
+func (c *Client) DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDelete(ctx context.Context, vaccineAvailabilityId string, timeslotId string, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewDeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteRequest(c.Server, vaccineAvailabilityId, timeslotId)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
 func (c *Client) UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutWithBody(ctx context.Context, vaccineAvailabilityId string, timeslotId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewUpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutRequestWithBody(c.Server, vaccineAvailabilityId, timeslotId, contentType, body)
 	if err != nil {
@@ -1102,6 +1183,18 @@ func (c *Client) UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilit
 
 func (c *Client) UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPut(ctx context.Context, vaccineAvailabilityId string, timeslotId string, body UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutJSONRequestBody, reqEditors ...RequestEditorFn) (*http.Response, error) {
 	req, err := NewUpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutRequest(c.Server, vaccineAvailabilityId, timeslotId, body)
+	if err != nil {
+		return nil, err
+	}
+	req = req.WithContext(ctx)
+	if err := c.applyEditors(ctx, req, reqEditors); err != nil {
+		return nil, err
+	}
+	return c.Client.Do(req)
+}
+
+func (c *Client) ListVaccineLocationsApiV1VaccineLocationsGet(ctx context.Context, params *ListVaccineLocationsApiV1VaccineLocationsGetParams, reqEditors ...RequestEditorFn) (*http.Response, error) {
+	req, err := NewListVaccineLocationsApiV1VaccineLocationsGetRequest(c.Server, params)
 	if err != nil {
 		return nil, err
 	}
@@ -1940,7 +2033,7 @@ func NewCreateVaccineAvailabilityApiV1VaccineAvailabilityPostRequestWithBody(ser
 }
 
 // NewDeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteRequest generates requests for DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDelete
-func NewDeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteRequest(server string, vaccineAvailabilityId int) (*http.Request, error) {
+func NewDeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteRequest(server string, vaccineAvailabilityId string) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -2008,7 +2101,7 @@ func NewRetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabili
 }
 
 // NewUpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutRequest calls the generic UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPut builder with application/json body
-func NewUpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutRequest(server string, vaccineAvailabilityId int, body UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutJSONRequestBody) (*http.Request, error) {
+func NewUpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutRequest(server string, vaccineAvailabilityId string, body UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
 	buf, err := json.Marshal(body)
 	if err != nil {
@@ -2019,7 +2112,7 @@ func NewUpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPu
 }
 
 // NewUpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutRequestWithBody generates requests for UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPut with any type of body
-func NewUpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutRequestWithBody(server string, vaccineAvailabilityId int, contentType string, body io.Reader) (*http.Request, error) {
+func NewUpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutRequestWithBody(server string, vaccineAvailabilityId string, contentType string, body io.Reader) (*http.Request, error) {
 	var err error
 
 	var pathParam0 string
@@ -2131,6 +2224,47 @@ func NewCreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVacci
 	}
 
 	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewDeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteRequest generates requests for DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDelete
+func NewDeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteRequest(server string, vaccineAvailabilityId string, requirementId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "vaccine_availability_id", runtime.ParamLocationPath, vaccineAvailabilityId)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "requirement_id", runtime.ParamLocationPath, requirementId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/vaccine-availability/%s/requirements/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = operationPath[1:]
+	}
+	operationURL := url.URL{
+		Path: operationPath,
+	}
+
+	queryURL := serverURL.ResolveReference(&operationURL)
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
 
 	return req, nil
 }
@@ -2270,6 +2404,47 @@ func NewCreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineA
 	return req, nil
 }
 
+// NewDeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteRequest generates requests for DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDelete
+func NewDeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteRequest(server string, vaccineAvailabilityId string, timeslotId string) (*http.Request, error) {
+	var err error
+
+	var pathParam0 string
+
+	pathParam0, err = runtime.StyleParamWithLocation("simple", false, "vaccine_availability_id", runtime.ParamLocationPath, vaccineAvailabilityId)
+	if err != nil {
+		return nil, err
+	}
+
+	var pathParam1 string
+
+	pathParam1, err = runtime.StyleParamWithLocation("simple", false, "timeslot_id", runtime.ParamLocationPath, timeslotId)
+	if err != nil {
+		return nil, err
+	}
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/vaccine-availability/%s/timeslots/%s", pathParam0, pathParam1)
+	if operationPath[0] == '/' {
+		operationPath = operationPath[1:]
+	}
+	operationURL := url.URL{
+		Path: operationPath,
+	}
+
+	queryURL := serverURL.ResolveReference(&operationURL)
+
+	req, err := http.NewRequest("DELETE", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return req, nil
+}
+
 // NewUpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutRequest calls the generic UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPut builder with application/json body
 func NewUpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutRequest(server string, vaccineAvailabilityId string, timeslotId string, body UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutJSONRequestBody) (*http.Request, error) {
 	var bodyReader io.Reader
@@ -2320,6 +2495,81 @@ func NewUpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineA
 	}
 
 	req.Header.Add("Content-Type", contentType)
+
+	return req, nil
+}
+
+// NewListVaccineLocationsApiV1VaccineLocationsGetRequest generates requests for ListVaccineLocationsApiV1VaccineLocationsGet
+func NewListVaccineLocationsApiV1VaccineLocationsGetRequest(server string, params *ListVaccineLocationsApiV1VaccineLocationsGetParams) (*http.Request, error) {
+	var err error
+
+	serverURL, err := url.Parse(server)
+	if err != nil {
+		return nil, err
+	}
+
+	operationPath := fmt.Sprintf("/api/v1/vaccine-locations")
+	if operationPath[0] == '/' {
+		operationPath = operationPath[1:]
+	}
+	operationURL := url.URL{
+		Path: operationPath,
+	}
+
+	queryURL := serverURL.ResolveReference(&operationURL)
+
+	queryValues := queryURL.Query()
+
+	if params.MinDate != nil {
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "min_date", runtime.ParamLocationQuery, *params.MinDate); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+	}
+
+	if queryFrag, err := runtime.StyleParamWithLocation("form", true, "postal_code", runtime.ParamLocationQuery, params.PostalCode); err != nil {
+		return nil, err
+	} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+		return nil, err
+	} else {
+		for k, v := range parsed {
+			for _, v2 := range v {
+				queryValues.Add(k, v2)
+			}
+		}
+	}
+
+	if params.IncludeEmpty != nil {
+
+		if queryFrag, err := runtime.StyleParamWithLocation("form", true, "include_empty", runtime.ParamLocationQuery, *params.IncludeEmpty); err != nil {
+			return nil, err
+		} else if parsed, err := url.ParseQuery(queryFrag); err != nil {
+			return nil, err
+		} else {
+			for k, v := range parsed {
+				for _, v2 := range v {
+					queryValues.Add(k, v2)
+				}
+			}
+		}
+
+	}
+
+	queryURL.RawQuery = queryValues.Encode()
+
+	req, err := http.NewRequest("GET", queryURL.String(), nil)
+	if err != nil {
+		return nil, err
+	}
 
 	return req, nil
 }
@@ -2452,15 +2702,15 @@ type ClientWithResponsesInterface interface {
 	CreateVaccineAvailabilityApiV1VaccineAvailabilityPostWithResponse(ctx context.Context, body CreateVaccineAvailabilityApiV1VaccineAvailabilityPostJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateVaccineAvailabilityApiV1VaccineAvailabilityPostResponse, error)
 
 	// DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDelete request
-	DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteWithResponse(ctx context.Context, vaccineAvailabilityId int, reqEditors ...RequestEditorFn) (*DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteResponse, error)
+	DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteWithResponse(ctx context.Context, vaccineAvailabilityId string, reqEditors ...RequestEditorFn) (*DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteResponse, error)
 
 	// RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdGet request
 	RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdGetWithResponse(ctx context.Context, vaccineAvailabilityId string, reqEditors ...RequestEditorFn) (*RetrieveVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdGetResponse, error)
 
 	// UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPut request  with any body
-	UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutWithBodyWithResponse(ctx context.Context, vaccineAvailabilityId int, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutResponse, error)
+	UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutWithBodyWithResponse(ctx context.Context, vaccineAvailabilityId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutResponse, error)
 
-	UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutWithResponse(ctx context.Context, vaccineAvailabilityId int, body UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutResponse, error)
+	UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutWithResponse(ctx context.Context, vaccineAvailabilityId string, body UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutResponse, error)
 
 	// ListRequirementsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsGet request
 	ListRequirementsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsGetWithResponse(ctx context.Context, vaccineAvailabilityId string, reqEditors ...RequestEditorFn) (*ListRequirementsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsGetResponse, error)
@@ -2469,6 +2719,9 @@ type ClientWithResponsesInterface interface {
 	CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostWithBodyWithResponse(ctx context.Context, vaccineAvailabilityId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostResponse, error)
 
 	CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostWithResponse(ctx context.Context, vaccineAvailabilityId string, body CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostResponse, error)
+
+	// DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDelete request
+	DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteWithResponse(ctx context.Context, vaccineAvailabilityId string, requirementId string, reqEditors ...RequestEditorFn) (*DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteResponse, error)
 
 	// UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPut request  with any body
 	UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutWithBodyWithResponse(ctx context.Context, vaccineAvailabilityId string, requirementId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutResponse, error)
@@ -2483,10 +2736,16 @@ type ClientWithResponsesInterface interface {
 
 	CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPostWithResponse(ctx context.Context, vaccineAvailabilityId string, body CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPostJSONRequestBody, reqEditors ...RequestEditorFn) (*CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPostResponse, error)
 
+	// DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDelete request
+	DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteWithResponse(ctx context.Context, vaccineAvailabilityId string, timeslotId string, reqEditors ...RequestEditorFn) (*DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteResponse, error)
+
 	// UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPut request  with any body
 	UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutWithBodyWithResponse(ctx context.Context, vaccineAvailabilityId string, timeslotId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutResponse, error)
 
 	UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutWithResponse(ctx context.Context, vaccineAvailabilityId string, timeslotId string, body UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutResponse, error)
+
+	// ListVaccineLocationsApiV1VaccineLocationsGet request
+	ListVaccineLocationsApiV1VaccineLocationsGetWithResponse(ctx context.Context, params *ListVaccineLocationsApiV1VaccineLocationsGetParams, reqEditors ...RequestEditorFn) (*ListVaccineLocationsApiV1VaccineLocationsGetResponse, error)
 }
 
 type ListAddressesApiV1AddressesGetResponse struct {
@@ -3101,6 +3360,28 @@ func (r CreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVacci
 	return 0
 }
 
+type DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON422      *HTTPValidationError
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
 type UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -3170,6 +3451,28 @@ func (r CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineA
 	return 0
 }
 
+type DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON422      *HTTPValidationError
+}
+
+// Status returns HTTPResponse.Status
+func (r DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
 type UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutResponse struct {
 	Body         []byte
 	HTTPResponse *http.Response
@@ -3187,6 +3490,29 @@ func (r UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineA
 
 // StatusCode returns HTTPResponse.StatusCode
 func (r UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutResponse) StatusCode() int {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.StatusCode
+	}
+	return 0
+}
+
+type ListVaccineLocationsApiV1VaccineLocationsGetResponse struct {
+	Body         []byte
+	HTTPResponse *http.Response
+	JSON200      *[]VaccineLocationExpandedResponse
+	JSON422      *HTTPValidationError
+}
+
+// Status returns HTTPResponse.Status
+func (r ListVaccineLocationsApiV1VaccineLocationsGetResponse) Status() string {
+	if r.HTTPResponse != nil {
+		return r.HTTPResponse.Status
+	}
+	return http.StatusText(0)
+}
+
+// StatusCode returns HTTPResponse.StatusCode
+func (r ListVaccineLocationsApiV1VaccineLocationsGetResponse) StatusCode() int {
 	if r.HTTPResponse != nil {
 		return r.HTTPResponse.StatusCode
 	}
@@ -3464,7 +3790,7 @@ func (c *ClientWithResponses) CreateVaccineAvailabilityApiV1VaccineAvailabilityP
 }
 
 // DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteWithResponse request returning *DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteResponse
-func (c *ClientWithResponses) DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteWithResponse(ctx context.Context, vaccineAvailabilityId int, reqEditors ...RequestEditorFn) (*DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteResponse, error) {
+func (c *ClientWithResponses) DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteWithResponse(ctx context.Context, vaccineAvailabilityId string, reqEditors ...RequestEditorFn) (*DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDeleteResponse, error) {
 	rsp, err := c.DeleteVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdDelete(ctx, vaccineAvailabilityId, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3482,7 +3808,7 @@ func (c *ClientWithResponses) RetrieveVaccineAvailabilityByIdApiV1VaccineAvailab
 }
 
 // UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutWithBodyWithResponse request with arbitrary body returning *UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutResponse
-func (c *ClientWithResponses) UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutWithBodyWithResponse(ctx context.Context, vaccineAvailabilityId int, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutResponse, error) {
+func (c *ClientWithResponses) UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutWithBodyWithResponse(ctx context.Context, vaccineAvailabilityId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutResponse, error) {
 	rsp, err := c.UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutWithBody(ctx, vaccineAvailabilityId, contentType, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3490,7 +3816,7 @@ func (c *ClientWithResponses) UpdateVaccineAvailabilityApiV1VaccineAvailabilityV
 	return ParseUpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutResponse(rsp)
 }
 
-func (c *ClientWithResponses) UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutWithResponse(ctx context.Context, vaccineAvailabilityId int, body UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutResponse, error) {
+func (c *ClientWithResponses) UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutWithResponse(ctx context.Context, vaccineAvailabilityId string, body UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutJSONRequestBody, reqEditors ...RequestEditorFn) (*UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPutResponse, error) {
 	rsp, err := c.UpdateVaccineAvailabilityApiV1VaccineAvailabilityVaccineAvailabilityIdPut(ctx, vaccineAvailabilityId, body, reqEditors...)
 	if err != nil {
 		return nil, err
@@ -3522,6 +3848,15 @@ func (c *ClientWithResponses) CreateRequirementForVaccineAvailabilityByIdApiV1Va
 		return nil, err
 	}
 	return ParseCreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsPostResponse(rsp)
+}
+
+// DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteWithResponse request returning *DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteResponse
+func (c *ClientWithResponses) DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteWithResponse(ctx context.Context, vaccineAvailabilityId string, requirementId string, reqEditors ...RequestEditorFn) (*DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteResponse, error) {
+	rsp, err := c.DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDelete(ctx, vaccineAvailabilityId, requirementId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteResponse(rsp)
 }
 
 // UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutWithBodyWithResponse request with arbitrary body returning *UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutResponse
@@ -3567,6 +3902,15 @@ func (c *ClientWithResponses) CreateTimeslotForVaccineAvailabilityByIdApiV1Vacci
 	return ParseCreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPostResponse(rsp)
 }
 
+// DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteWithResponse request returning *DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteResponse
+func (c *ClientWithResponses) DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteWithResponse(ctx context.Context, vaccineAvailabilityId string, timeslotId string, reqEditors ...RequestEditorFn) (*DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteResponse, error) {
+	rsp, err := c.DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDelete(ctx, vaccineAvailabilityId, timeslotId, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseDeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteResponse(rsp)
+}
+
 // UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutWithBodyWithResponse request with arbitrary body returning *UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutResponse
 func (c *ClientWithResponses) UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutWithBodyWithResponse(ctx context.Context, vaccineAvailabilityId string, timeslotId string, contentType string, body io.Reader, reqEditors ...RequestEditorFn) (*UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutResponse, error) {
 	rsp, err := c.UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutWithBody(ctx, vaccineAvailabilityId, timeslotId, contentType, body, reqEditors...)
@@ -3582,6 +3926,15 @@ func (c *ClientWithResponses) UpdateTimeslotForVaccineAvailabilityByIdApiV1Vacci
 		return nil, err
 	}
 	return ParseUpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutResponse(rsp)
+}
+
+// ListVaccineLocationsApiV1VaccineLocationsGetWithResponse request returning *ListVaccineLocationsApiV1VaccineLocationsGetResponse
+func (c *ClientWithResponses) ListVaccineLocationsApiV1VaccineLocationsGetWithResponse(ctx context.Context, params *ListVaccineLocationsApiV1VaccineLocationsGetParams, reqEditors ...RequestEditorFn) (*ListVaccineLocationsApiV1VaccineLocationsGetResponse, error) {
+	rsp, err := c.ListVaccineLocationsApiV1VaccineLocationsGet(ctx, params, reqEditors...)
+	if err != nil {
+		return nil, err
+	}
+	return ParseListVaccineLocationsApiV1VaccineLocationsGetResponse(rsp)
 }
 
 // ParseListAddressesApiV1AddressesGetResponse parses an HTTP response from a ListAddressesApiV1AddressesGetWithResponse call
@@ -4412,6 +4765,32 @@ func ParseCreateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVac
 	return response, nil
 }
 
+// ParseDeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteResponse parses an HTTP response from a DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteWithResponse call
+func ParseDeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteResponse(rsp *http.Response) (*DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteResponse, error) {
+	bodyBytes, err := ioutil.ReadAll(rsp.Body)
+	defer rsp.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseUpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutResponse parses an HTTP response from a UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutWithResponse call
 func ParseUpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutResponse(rsp *http.Response) (*UpdateRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdPutResponse, error) {
 	bodyBytes, err := ioutil.ReadAll(rsp.Body)
@@ -4511,6 +4890,32 @@ func ParseCreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccin
 	return response, nil
 }
 
+// ParseDeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteResponse parses an HTTP response from a DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteWithResponse call
+func ParseDeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteResponse(rsp *http.Response) (*DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteResponse, error) {
+	bodyBytes, err := ioutil.ReadAll(rsp.Body)
+	defer rsp.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &DeleteTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdDeleteResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	}
+
+	return response, nil
+}
+
 // ParseUpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutResponse parses an HTTP response from a UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutWithResponse call
 func ParseUpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutResponse(rsp *http.Response) (*UpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsTimeslotIdPutResponse, error) {
 	bodyBytes, err := ioutil.ReadAll(rsp.Body)
@@ -4527,6 +4932,39 @@ func ParseUpdateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccin
 	switch {
 	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
 		var dest VaccineAvailabilityTimeslotResponse
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON200 = &dest
+
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 422:
+		var dest HTTPValidationError
+		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
+			return nil, err
+		}
+		response.JSON422 = &dest
+
+	}
+
+	return response, nil
+}
+
+// ParseListVaccineLocationsApiV1VaccineLocationsGetResponse parses an HTTP response from a ListVaccineLocationsApiV1VaccineLocationsGetWithResponse call
+func ParseListVaccineLocationsApiV1VaccineLocationsGetResponse(rsp *http.Response) (*ListVaccineLocationsApiV1VaccineLocationsGetResponse, error) {
+	bodyBytes, err := ioutil.ReadAll(rsp.Body)
+	defer rsp.Body.Close()
+	if err != nil {
+		return nil, err
+	}
+
+	response := &ListVaccineLocationsApiV1VaccineLocationsGetResponse{
+		Body:         bodyBytes,
+		HTTPResponse: rsp,
+	}
+
+	switch {
+	case strings.Contains(rsp.Header.Get("Content-Type"), "json") && rsp.StatusCode == 200:
+		var dest []VaccineLocationExpandedResponse
 		if err := json.Unmarshal(bodyBytes, &dest); err != nil {
 			return nil, err
 		}
