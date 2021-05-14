@@ -13,7 +13,9 @@ import (
 // Should be overwritten
 var version = "0.0.0"
 
-// rootCmd represents the base command when called without any subcommands
+// RootCmd represents the base command when called without any subcommands
+var RootCmd = rootCmd
+
 // Command: vf-admin
 var rootCmd = &cobra.Command{
 	Use:     "vf-admin",

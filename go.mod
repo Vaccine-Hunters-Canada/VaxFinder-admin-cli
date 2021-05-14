@@ -8,6 +8,7 @@ require (
 	github.com/fatih/color v1.10.0
 	github.com/google/uuid v1.2.0
 	github.com/mitchellh/go-homedir v1.1.0
+	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/spf13/cobra v1.1.3
 	github.com/spf13/viper v1.7.0
 	golang.org/x/lint v0.0.0-20210508222113-6edffad5e616 // indirect
