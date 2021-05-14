@@ -38,15 +38,37 @@ Before running all other commands, you must add an authentication key that can b
 
 ### Installation
 
-```
+```bash
 go get .
+```
+
+### Pre-commit Hooks
+
+Pre-commit hooks helps identify simple issues in code before it's committed into Git.
+
+#### Install pre-commit
+
+Follow installation instructions for pre-commit [here](https://pre-commit.com/#installation).
+
+#### Install the git hook scripts
+
+```bash
+pre-commit install
+```
+
+#### Temporarily Disabling hooks
+
+It's possible to disable hooks temporarily, but it isn't recommended.
+
+```bash
+$ SKIP=go-fmt,go-vet,go-lint git commit -m <message>
 ```
 
 ### Adding New Commands
 
-To create a top-level command, run the command below. Learn more [here](https://github.com/spf13/cobra/blob/master/cobra/README.md#cobra-add).
+To create a top-level command, run the command below and then delete the file header at the top of the newly created Go file. Learn more [here](https://github.com/spf13/cobra/blob/master/cobra/README.md#cobra-add).
 ```
-cobra add <command> --author="VaxFinder Project"
+cobra add <command>
 ```
 
 ### Generating an OpenAPI Client
