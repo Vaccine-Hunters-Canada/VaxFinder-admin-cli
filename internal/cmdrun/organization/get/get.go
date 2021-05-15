@@ -17,7 +17,7 @@ func CmdRunE(cmd *cobra.Command, args []string) error {
 		return errors.New("expecting integer as id")
 	}
 
-	// Create the API client using the authentication key for requests
+	// Create the API client
 	client, cErr := utils.GetAPIClient()
 	if cErr != nil {
 		color.Red(cErr.Error())

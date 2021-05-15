@@ -11,7 +11,7 @@ import (
 
 // CmdRunE is what's executed when running `vf-admin organization list`
 func CmdRunE(cmd *cobra.Command, args []string) error {
-	// Create the API client using the authentication key for requests
+	// Create the API client
 	client, cErr := utils.GetAPIClient()
 	if cErr != nil {
 		color.Red(cErr.Error())
