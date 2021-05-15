@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"vf-admin/internal/cmdrun/organization/get"
+	"vf-admin/internal/cmdrun/organization/list"
 
 	"github.com/MakeNowJust/heredoc"
 	"github.com/spf13/cobra"
@@ -29,7 +30,12 @@ var organizationGetCmd = &cobra.Command{
 var organizationListCmd = &cobra.Command{
 	Use:   "list",
 	Short: "Retrieve a list of organizations",
-	Args:  cobra.ExactArgs(0),
+	Example: heredoc.Doc(`
+			# List the organizations.
+			$ vf-admin organization list
+	`),
+	Args: cobra.ExactArgs(0),
+	RunE: list.CmdRunE,
 }
 
 // Command: `vf-admin organization add <id>`
