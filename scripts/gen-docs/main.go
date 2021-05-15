@@ -7,6 +7,7 @@ import (
 )
 
 func main() {
+	cmd.RootCmd.DisableAutoGenTag = true
 	if err := doc.GenMarkdownTree(cmd.RootCmd, "./docs"); err != nil {
 		log.Fatal(err)
 	}
