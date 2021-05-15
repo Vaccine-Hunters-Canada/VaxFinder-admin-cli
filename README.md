@@ -24,15 +24,17 @@
 
 Click [here](#how-to-install) for installation instructions.
 
-## Available Commands
+## Commands
 
 If you ever need help, run `vf-admin help`.
 
 #### `vf-admin configure --key=<auth-key>`
 
-Before running all other commands, you must add an authentication key that can be obtained through one of the project developers. Multiple profiles are supported so you can be authenticated using multiple keys. To create a profile with an authentication key, run `vf-admin configure --key=<auth-key> --profile=<named-profile>`.
+Before running all other commands, you must add an authentication key that can be obtained through one of the developers working on the VaxFinder backend. Multiple profiles are supported so you can be authenticated using multiple keys. To create a profile with an authentication key, run `vf-admin configure --key=<auth-key> --profile=<named-profile>`.
 
-**_Other commands in development._** :construction:
+**Go to [the `docs` folder](/docs) to view auto-generated documentation on the CLI.**
+
+**_Note that there is no stable release for this tool yet._** :construction:
 
 ## Development
 
