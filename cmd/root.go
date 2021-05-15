@@ -11,7 +11,7 @@ import (
 )
 
 // RootCmd represents the base command when called without any subcommands
-// Command: vf-admin
+// Command: `vf-admin`
 var RootCmd = &cobra.Command{
 	Use:   "vf-admin",
 	Short: "vf-admin is a CLI to manage vaccine availabilities and other data for the Vaccine Hunters Finder tool.",
@@ -52,6 +52,6 @@ func initConfig() {
 
 	// If a config file is found, read it in.
 	if err := viper.ReadInConfig(); err == nil {
-		fmt.Fprintln(os.Stderr, "Using config file:", viper.ConfigFileUsed())
+		fmt.Println("Using config file:", viper.ConfigFileUsed())
 	}
 }
