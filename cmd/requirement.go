@@ -90,11 +90,11 @@ func init() {
 	requirementCmd.AddCommand(requirementAddCmd)
 
 	// Update command
-	requirementCmd.AddCommand(requirementUpdateCmd)
 	requirementUpdateCmd.Flags().String("name", "", "name of requirement")
 	_ = requirementUpdateCmd.MarkFlagRequired("name")
 	requirementUpdateCmd.Flags().String("description", "", "description of requirement")
 	_ = requirementUpdateCmd.MarkFlagRequired("description")
+	requirementCmd.AddCommand(requirementUpdateCmd)
 
 	// Remove command
 	requirementCmd.AddCommand(requirementRemoveCmd)
