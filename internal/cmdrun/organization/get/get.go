@@ -14,7 +14,7 @@ import (
 func CmdRunE(cmd *cobra.Command, args []string) error {
 	id, aErr := strconv.Atoi(args[0])
 	if aErr != nil {
-		return errors.New("expecting integer as id")
+		return errors.New("expecting id as integer")
 	}
 
 	// Create the API client
