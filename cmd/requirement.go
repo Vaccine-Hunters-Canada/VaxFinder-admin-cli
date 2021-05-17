@@ -4,6 +4,8 @@ import (
 	"vf-admin/internal/cmdrun/requirement/add"
 	"vf-admin/internal/cmdrun/requirement/get"
 	"vf-admin/internal/cmdrun/requirement/list"
+	"vf-admin/internal/cmdrun/requirement/remove"
+	"vf-admin/internal/cmdrun/requirement/update"
 
 	"github.com/MakeNowJust/heredoc"
 	"github.com/spf13/cobra"
@@ -51,14 +53,24 @@ var requirementAddCmd = &cobra.Command{
 var requirementUpdateCmd = &cobra.Command{
 	Use:   "update",
 	Short: "Update a requirement with a specified id",
-	Args:  cobra.ExactArgs(1),
+	Example: heredoc.Doc(`
+			# Update the requirement with id 8 to have name "High-Risk" and description "Highest- and High-Risk Health Conditions.".
+			$ vf-admin requirement update 8 --name "High-Risk" --description "Highest- and High-Risk Health Conditions."
+	`),
+	Args: cobra.ExactArgs(1),
+	RunE: update.CmdRunE,
 }
 
 // Command: `vf-admin requirement remove <id>`
 var requirementRemoveCmd = &cobra.Command{
 	Use:   "remove",
 	Short: "Remove a requirement with a specified id",
-	Args:  cobra.ExactArgs(1),
+	Example: heredoc.Doc(`
+			# Remove the requirement with id 8.
+			$ vf-admin requirement remove 8
+	`),
+	Args: cobra.ExactArgs(1),
+	RunE: remove.CmdRunE,
 }
 
 func init() {
@@ -79,6 +91,10 @@ func init() {
 
 	// Update command
 	requirementCmd.AddCommand(requirementUpdateCmd)
+	requirementUpdateCmd.Flags().String("name", "", "name of requirement")
+	_ = requirementUpdateCmd.MarkFlagRequired("name")
+	requirementUpdateCmd.Flags().String("description", "", "description of requirement")
+	_ = requirementUpdateCmd.MarkFlagRequired("description")
 
 	// Remove command
 	requirementCmd.AddCommand(requirementRemoveCmd)

@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// CmdRunE is what's executed when running `vf-admin requirement list`
+// CmdRun is what's executed when running `vf-admin requirement list`
 func CmdRun(cmd *cobra.Command, args []string) {
 
 	// Create the API client using the authentication key for requests
