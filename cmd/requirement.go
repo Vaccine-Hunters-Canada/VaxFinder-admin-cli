@@ -1,10 +1,12 @@
 package cmd
 
 import (
-	"github.com/MakeNowJust/heredoc"
-	"github.com/spf13/cobra"
 	"vf-admin/internal/cmdrun/requirement/add"
 	"vf-admin/internal/cmdrun/requirement/get"
+	"vf-admin/internal/cmdrun/requirement/list"
+
+	"github.com/MakeNowJust/heredoc"
+	"github.com/spf13/cobra"
 )
 
 // Command: `vf-admin requirement`
@@ -30,6 +32,7 @@ var requirementListCmd = &cobra.Command{
 	Use:   "list",
 	Short: "Retrieve a list of requirements",
 	Args:  cobra.ExactArgs(0),
+	Run:   list.CmdRun,
 }
 
 // Command: `vf-admin requirement add <id>`
