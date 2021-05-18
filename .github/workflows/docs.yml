@@ -17,6 +17,8 @@ jobs:
       # Checkout the commit SHA that triggered the workflow
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          persist-credentials: false
         
       - name: Generate docs
         run: go run ./scripts/gen-docs/main.go ${GITHUB_REF/refs\/tags\//}
