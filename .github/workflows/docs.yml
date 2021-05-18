@@ -26,5 +26,7 @@ jobs:
         
       - name: Commit and push docs
         run: |
+          git config --global user.name "Alvin Tang (via GH Actions)"
+          git config --global user.email "alvintangz@users.noreply.github.com"
           git commit -am ":memo: Auto generated docs for ${GITHUB_REF/refs\/tags\//}"
           git push
