@@ -1,42 +1,33 @@
-name: CLI Docs
+name: CLI Docs (main)
 on:
-  push:
-    branches:
-      - "main"
-    tags:
-      - "v*"
+    push:
+        branches: [main]
 jobs:
   docs:
+    if: ${{ !contains(github.event.head_commit.author.name, 'github-actions') }}
     runs-on: ubuntu-latest
     steps:
       - name: Install Go v1.16
         uses: actions/setup-go@v2
         with:
           go-version: "1.16"
-        
+
       # Checkout the commit SHA that triggered the workflow
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }} || true
-      
-      # Get version for generated docs
-      - name: Get version
-        run: |
-          case $GITHUB_REF in refs/heads/*)
-            echo "DOCS_VERSION=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV;;
-          case $GITHUB_REF in refs/tags/*)
-            echo "DOCS_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV;;
-          esac
-        
+            token: ${{ secrets.ADMIN_ACCESS_TOKEN }}
+
       - name: Generate docs
-        run: go run ./scripts/gen-docs/main.go ${{ env.DOCS_VERSION }}
-        
+        run: go run ./scripts/gen-docs/main.go source
+
       - name: Commit and push docs
         run: |
-          git config --global user.name "Alvin Tang (via GH Actions)"
-          git config --global user.email "alvintangz@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
           git status
-          git commit -m ":memo: Auto generated docs for ${{ env.DOCS_VERSION }}"
-          git push
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m ':memo: Auto generated docs in `docs/source`.'
+            git push
+          fi

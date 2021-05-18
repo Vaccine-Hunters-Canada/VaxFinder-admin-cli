@@ -26,6 +26,3 @@
 
 # Ignore GoLand
 .idea/
-
-# Ignore autogen docs for source code (development)
-docs/source/
