@@ -3,7 +3,7 @@
 </div>
 
 <div align="center">
-    <strong>A CLI for administrators to manage vaccine availabilities and other data for the Vaccine Hunters Finder tool.</strong>
+    <strong>CLI for administrators to manage vaccine availabilities and other data for the Vaccine Hunters Finder tool.</strong>
 </div>
 
 <br/>
