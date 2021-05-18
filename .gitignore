@@ -28,4 +28,4 @@
 .idea/
 
 # Ignore autogen docs for source code (development)
-docs/source
+docs/source/
