@@ -6,7 +6,7 @@ on:
     tags:
       - "v*"
 jobs:
-  build:
+  docs:
     runs-on: ubuntu-latest
     steps:
       # Install Go v1.16
