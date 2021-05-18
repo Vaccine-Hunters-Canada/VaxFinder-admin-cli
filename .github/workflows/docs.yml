@@ -18,7 +18,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          token: ${{ secrets.ADMIN_ACCESS_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
         
       - name: Generate docs
         run: go run ./scripts/gen-docs/main.go ${GITHUB_REF/refs\/tags\//}
