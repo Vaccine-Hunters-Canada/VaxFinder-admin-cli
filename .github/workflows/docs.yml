@@ -9,14 +9,22 @@ jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
-      # Install Go v1.16
       - name: Install Go v1.16
         uses: actions/setup-go@v2
         with:
           go-version: "1.16"
+        
       # Checkout the commit SHA that triggered the workflow
       - name: Checkout code
         uses: actions/checkout@v2
-      # Generate docs
+        
       - name: Generate docs
         run: go run ./scripts/gen-docs/main.go ${GITHUB_REF/refs\/tags\//}
+        
+      - name: Check for changes
+        run: git status
+        
+      - name: Commit and push docs
+        run: |
+          git commit -am ":memo: Auto generated docs for ${GITHUB_REF/refs\/tags\//}"
+          git push
