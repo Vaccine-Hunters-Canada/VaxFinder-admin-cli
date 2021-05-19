@@ -106,7 +106,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          ref: ${{ needs.beautify.outputs.new_sha }}
+          ref: ${{ needs.generate-docs.outputs.new_sha }}
           fetch-depth: 0
           token: ${{ secrets.ADMIN_ACCESS_TOKEN }}
 
@@ -127,7 +127,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          ref: ${{ needs.beautify.outputs.new_sha }}
+          ref: ${{ needs.generate-docs.outputs.new_sha }}
           fetch-depth: 0
           token: ${{ secrets.ADMIN_ACCESS_TOKEN }}
 
@@ -164,14 +164,6 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: 1.16
-
-      - name: Cache Go modules
-        uses: actions/cache@v1
-        with:
-          path: ~/go/pkg/mod
-          key: ${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
-          restore-keys: |
-            ${{ runner.os }}-go-
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@v2
