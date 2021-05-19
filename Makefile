@@ -1,10 +1,10 @@
 .PHONY: install
 install: # Install on system
-	go install --ldflags "-X main.buildVersion=source"
+	go install
 
 .PHONY: build
 build: # Build code
-	go build --ldflags "-X main.buildVersion=source"
+	go build
 
 .PHONY: fmt
 fmt: # Run all formatting
