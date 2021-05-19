@@ -18,13 +18,16 @@ jobs:
         with:
             token: ${{ secrets.ADMIN_ACCESS_TOKEN }}
 
+      - name: Configure Git user
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
+
       - name: Generate docs
         run: go run ./scripts/gen-docs/main.go source
 
       - name: Commit and push docs
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add .
           git status
           if [ -n "$(git status --porcelain)" ]; then

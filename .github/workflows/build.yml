@@ -101,7 +101,7 @@ jobs:
           token: ${{ secrets.ADMIN_ACCESS_TOKEN }}
 
       - name: Pull latest code
-        run: git pull origin stable
+        run: git pull --no-rebase
 
       - name: Merge stable into main branch
         uses: devmasx/merge-branch@v1.3.1
@@ -123,8 +123,13 @@ jobs:
           ref: stable
           token: ${{ secrets.ADMIN_ACCESS_TOKEN }}
 
+      - name: Configure Git user
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
+
       - name: Pull latest code
-        run: git pull origin stable
+        run: git pull --no-rebase
 
       - name: Tag and push to repository
         run: |
