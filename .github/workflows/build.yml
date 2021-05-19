@@ -100,6 +100,9 @@ jobs:
           ref: stable
           token: ${{ secrets.ADMIN_ACCESS_TOKEN }}
 
+      - name: Pull latest code
+        run: git pull origin stable
+
       - name: Merge stable into main branch
         uses: devmasx/merge-branch@v1.3.1
         with:
@@ -120,6 +123,9 @@ jobs:
           ref: stable
           token: ${{ secrets.ADMIN_ACCESS_TOKEN }}
 
+      - name: Pull latest code
+        run: git pull origin stable
+
       - name: Tag and push to repository
         run: |
           tagMsg="${{ github.event.inputs.tagMessage }}"
@@ -127,8 +133,8 @@ jobs:
           then
               tagMsg="Releasing version v${{ github.event.inputs.version }}"
           fi
-          git tag -a ${{ env.TAG_NAME }} -m $tagMsg
-          git push origin ${{ env.TAG_NAME }}
+          git tag -a "${{ env.TAG_NAME }}" -m "$tagMsg"
+          git push origin "${{ env.TAG_NAME }}"
 
   build:
     name: Build and release
