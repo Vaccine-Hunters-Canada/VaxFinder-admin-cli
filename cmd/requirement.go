@@ -37,7 +37,7 @@ var requirementListCmd = &cobra.Command{
 	Run:   list.CmdRun,
 }
 
-// Command: `vf-admin requirement add <id>`
+// Command: `vf-admin requirement add`
 var requirementAddCmd = &cobra.Command{
 	Use:   "add",
 	Short: "Add a new requirement",
