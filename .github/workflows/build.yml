@@ -27,9 +27,10 @@ jobs:
           # Regex Credit: https://gist.github.com/rverst/1f0b97da3cbeb7d93f4986df6e8e5695
           if [[ ! $version =~ ^(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)(-((0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*)(\.(0|[1-9][0-9]*|[0-9]*[a-zA-Z-][0-9a-zA-Z-]*))*))?(\+([0-9a-zA-Z-]+(\.[0-9a-zA-Z-]+)*))?$ ]];
           then
-            echo "\"$version\" is not a valid version."
+            echo "\"$version\" is not a valid version (i.e. does not follow semantic versioning)."
             exit 1
           fi
+          echo "\"$version\" is a valid version."
       - name: "Validate input: Base URL"
         run: |
           url="${{ github.event.inputs.baseUrl }}"
@@ -39,6 +40,7 @@ jobs:
             echo "\"$url\" is not a valid url."
             exit 1
           fi
+          echo "\"$url\" is a valid url."
 
   stable-branch:
     name: Merge main into stable branch
@@ -48,25 +50,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          ref: stable
+          ref: main
           token: ${{ secrets.ADMIN_ACCESS_TOKEN }}
 
-      - name: Configure Git user
-        run: |
-          git config --global user.name github-actions
-          git config --global user.email github-actions@github.com
-
       - name: Merge main into stable branch
-        run: |
-          git merge main
-
-      - name: Commit and push changes
-        run: |
-          git add .
-          git status
-          if [ -n "$(git status --porcelain)" ]; then
-            git push
-          fi
+        uses: devmasx/merge-branch@v1.3.1
+        with:
+          type: now
+          target_branch: stable
+          github_token: ${{ secrets.ADMIN_ACCESS_TOKEN }}
 
   # Generate CLI documentation for version in stable branch
   generate-docs:
@@ -105,25 +97,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          ref: main
+          ref: stable
           token: ${{ secrets.ADMIN_ACCESS_TOKEN }}
 
-      - name: Configure Git user
-        run: |
-          git config --global user.name github-actions
-          git config --global user.email github-actions@github.com
-
       - name: Merge stable into main branch
-        run: |
-          git merge stable
-
-      - name: Commit and push changes
-        run: |
-          git add .
-          git status
-          if [ -n "$(git status --porcelain)" ]; then
-            git push
-          fi
+        uses: devmasx/merge-branch@v1.3.1
+        with:
+          type: now
+          target_branch: main
+          github_token: ${{ secrets.ADMIN_ACCESS_TOKEN }}
 
   tag:
     name: Tag release
