@@ -13,21 +13,30 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: "1.16"
-        
+
       # Checkout the commit SHA that triggered the workflow
       - name: Checkout code
         uses: actions/checkout@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }} || true
-        
+
+      # Get version for generated docs
+      - name: Get version
+        run: |
+          case $GITHUB_REF in refs/heads/*)
+            echo "DOCS_VERSION=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV;;
+          case $GITHUB_REF in refs/tags/*)
+            echo "DOCS_VERSION=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV;;
+          esac
+
       - name: Generate docs
-        run: go run ./scripts/gen-docs/main.go ${GITHUB_REF/refs\/tags\//}
-        
+        run: go run ./scripts/gen-docs/main.go ${{ env.DOCS_VERSION }}
+
       - name: Commit and push docs
         run: |
           git config --global user.name "Alvin Tang (via GH Actions)"
           git config --global user.email "alvintangz@users.noreply.github.com"
           git add .
           git status
-          git commit -m ":memo: Auto generated docs for ${GITHUB_REF/refs\/tags\//}"
+          git commit -m ":memo: Auto generated docs for ${{ env.DOCS_VERSION }}"
           git push
