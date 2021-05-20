@@ -114,6 +114,7 @@ jobs:
         uses: devmasx/merge-branch@v1.3.1
         with:
           type: now
+          head_to_merge: stable
           target_branch: main
           github_token: ${{ secrets.ADMIN_ACCESS_TOKEN }}
 
@@ -135,9 +136,6 @@ jobs:
         run: |
           git config --global user.name github-actions
           git config --global user.email github-actions@github.com
-
-      - name: Pull latest code
-        run: git pull --no-rebase
 
       - name: Tag and push to repository
         run: |
