@@ -41,7 +41,7 @@ var addressListCmd = &cobra.Command{
 	RunE: list.CmdRunE,
 }
 
-// Command: `vf-admin address add <id>`
+// Command: `vf-admin address add`
 var addressAddCmd = &cobra.Command{
 	Use:   "add",
 	Short: "Add a new address",

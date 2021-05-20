@@ -41,7 +41,7 @@ var organizationListCmd = &cobra.Command{
 	RunE: list.CmdRunE,
 }
 
-// Command: `vf-admin organization add <id>`
+// Command: `vf-admin organization add`
 var organizationAddCmd = &cobra.Command{
 	Use:   "add",
 	Short: "Add a new organization",
