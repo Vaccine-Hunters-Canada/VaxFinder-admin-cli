@@ -1,0 +1,36 @@
+name: CLI Docs (main)
+on:
+    push:
+        branches: [main]
+jobs:
+  docs:
+    if: ${{ !contains(github.event.head_commit.author.name, 'github-actions') }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Go v1.16
+        uses: actions/setup-go@v2
+        with:
+          go-version: "1.16"
+
+      # Checkout the commit SHA that triggered the workflow
+      - name: Checkout code
+        uses: actions/checkout@v2
+        with:
+            token: ${{ secrets.ADMIN_ACCESS_TOKEN }}
+
+      - name: Configure Git user
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
+
+      - name: Generate docs
+        run: go run ./scripts/gen-docs/main.go source
+
+      - name: Commit and push docs
+        run: |
+          git add .
+          git status
+          if [ -n "$(git status --porcelain)" ]; then
+            git commit -m ':memo: Auto generated docs in `docs/source`.'
+            git push
+          fi

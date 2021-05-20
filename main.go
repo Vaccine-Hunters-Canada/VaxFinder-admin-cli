@@ -5,13 +5,17 @@ import (
 	"vf-admin/internal/utils"
 )
 
-var buildVersion string
-var baseURL string
+var (
+	version string
+	commit  string
+	date    string
+	baseURL string
+)
 
 func main() {
 	// Set build version
-	if len(buildVersion) > 0 {
-		utils.SetVersion(buildVersion)
+	if len(version) > 0 {
+		utils.SetVersion(version)
 	}
 
 	// Set API base URL

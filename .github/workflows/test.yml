@@ -1,0 +1,23 @@
+name: Go Test
+on: [push, pull_request]
+jobs:
+  test:
+    if: ${{ !contains(github.event.head_commit.author.name, 'github-actions') }}
+    # Run tests on multiple operating systems using Go v1.16
+    strategy:
+      matrix:
+        go-version: [1.16]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: ${{ matrix.go-version }}
+
+    # Checkout the commit SHA that triggered the workflow
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Test
+      run: go test ./...

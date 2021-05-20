@@ -26,3 +26,5 @@
 
 # Ignore GoLand
 .idea/
+
+dist/

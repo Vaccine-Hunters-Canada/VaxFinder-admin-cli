@@ -1,8 +1,7 @@
-package get
+package list
 
 import (
 	"context"
-	"errors"
 	"strconv"
 	"vf-admin/internal/utils"
 
@@ -10,14 +9,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// CmdRunE is what's executed when running `vf-admin requirement get <id>`
+// CmdRunE is what's executed when running `vf-admin organization list`
 func CmdRunE(cmd *cobra.Command, args []string) error {
-	id, aErr := strconv.Atoi(args[0])
-	if aErr != nil {
-		return errors.New("expecting id as integer")
-	}
-
-	// Create the API client using the authentication key for requests
+	// Create the API client
 	client, cErr := utils.GetAPIClient()
 	if cErr != nil {
 		color.Red(cErr.Error())
@@ -25,14 +19,14 @@ func CmdRunE(cmd *cobra.Command, args []string) error {
 	}
 
 	// Create spinner
-	spinner, sErr := utils.GetDefaultSpinnerForHTTPOp("get", "got", "requirement")
+	spinner, sErr := utils.GetDefaultSpinnerForHTTPOp("list", "got", "organizations")
 	if sErr != nil {
 		color.Red(sErr.Error())
 		return nil
 	}
 	_ = spinner.Start()
 
-	res, rErr := client.RetrieveRequirementByIdApiV1RequirementsRequirementIdGetWithResponse(context.Background(), id)
+	res, rErr := client.ListOrganizationsApiV1OrganizationsGetWithResponse(context.Background())
 
 	if rErr != nil {
 		spinner.StopFailMessage(rErr.Error())
@@ -48,12 +42,15 @@ func CmdRunE(cmd *cobra.Command, args []string) error {
 
 	_ = spinner.Stop()
 
-	colNames := []string{"id", "name", "description", "created at"}
-	data := [][]string{
-		{
-			strconv.Itoa(res.JSON200.Id), res.JSON200.Name, res.JSON200.Description, res.JSON200.CreatedAt.String(),
-		},
+	colNames := []string{"id", "short name", "full name", "description", "url", "created at"}
+
+	var data [][]string
+	for _, row := range *res.JSON200 {
+		data = append(data, []string{
+			strconv.Itoa(row.Id), row.ShortName, utils.CoalesceString(row.FullName), utils.CoalesceString(row.Description), utils.CoalesceString(row.Url), row.CreatedAt.String(),
+		})
 	}
+
 	utils.RenderDefaultTable(colNames, data)
 
 	return nil

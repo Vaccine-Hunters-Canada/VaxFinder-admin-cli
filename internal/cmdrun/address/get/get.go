@@ -10,14 +10,14 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// CmdRunE is what's executed when running `vf-admin requirement get <id>`
+// CmdRunE is what's executed when running `vf-admin address get <id>`
 func CmdRunE(cmd *cobra.Command, args []string) error {
 	id, aErr := strconv.Atoi(args[0])
 	if aErr != nil {
 		return errors.New("expecting id as integer")
 	}
 
-	// Create the API client using the authentication key for requests
+	// Create the API client
 	client, cErr := utils.GetAPIClient()
 	if cErr != nil {
 		color.Red(cErr.Error())
@@ -25,14 +25,14 @@ func CmdRunE(cmd *cobra.Command, args []string) error {
 	}
 
 	// Create spinner
-	spinner, sErr := utils.GetDefaultSpinnerForHTTPOp("get", "got", "requirement")
+	spinner, sErr := utils.GetDefaultSpinnerForHTTPOp("get", "got", "address")
 	if sErr != nil {
 		color.Red(sErr.Error())
 		return nil
 	}
 	_ = spinner.Start()
 
-	res, rErr := client.RetrieveRequirementByIdApiV1RequirementsRequirementIdGetWithResponse(context.Background(), id)
+	res, rErr := client.RetrieveAddressByIdApiV1AddressesAddressIdGetWithResponse(context.Background(), id)
 
 	if rErr != nil {
 		spinner.StopFailMessage(rErr.Error())
@@ -48,10 +48,11 @@ func CmdRunE(cmd *cobra.Command, args []string) error {
 
 	_ = spinner.Stop()
 
-	colNames := []string{"id", "name", "description", "created at"}
+	colNames := []string{"id", "line 1", "line 2", "city", "postal code", "province" /* Coming soon: , "latitude", "longitude"*/, "created at"}
+	json := res.JSON200
 	data := [][]string{
 		{
-			strconv.Itoa(res.JSON200.Id), res.JSON200.Name, res.JSON200.Description, res.JSON200.CreatedAt.String(),
+			strconv.Itoa(json.Id), utils.CoalesceString(json.Line1), utils.CoalesceString(json.Line2), utils.CoalesceString(json.City), json.Postcode, json.Province /*json.Latitude.String(), json.Longitude.String(),*/, json.CreatedAt.String(),
 		},
 	}
 	utils.RenderDefaultTable(colNames, data)
