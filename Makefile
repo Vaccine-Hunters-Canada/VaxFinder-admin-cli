@@ -1,10 +1,10 @@
 .PHONY: install
-install: # Install on system
-	go install
+install: # Install on system for development
+	go install -ldflags="-X main.baseURL=https://vax-availability-api-staging.azurewebsites.net"
 
 .PHONY: build
-build: # Build code
-	go build
+build: # Build on system for development
+	go build --ldflags="-X main.baseURL=https://vax-availability-api-staging.azurewebsites.net"
 
 .PHONY: fmt
 fmt: # Run all formatting

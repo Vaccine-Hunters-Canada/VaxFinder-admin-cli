@@ -18,7 +18,7 @@ builds:
     flags:
     - -trimpath
     ldflags:
-    - -s -w -X main.version={{ .Version }} -X main.commit={{ .Commit }} -X main.date={{ .CommitDate }} -X main.baseURL={{ .Env.BASE_URL }}
+    - -s -w -X main.version={{ .Version }} -X main.tag={{ .Tag }} -X main.date={{ .CommitDate }}
 archives:
   - name_template: '{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}{{ if .Arm }}v{{ .Arm }}{{ end }}'
     replacements:

@@ -1,17 +1,14 @@
 package cmd
 
 import (
-	"fmt"
 	"github.com/spf13/cobra"
-	"vf-admin/internal/utils"
+	"vf-admin/internal/cmdrun/version"
 )
 
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Returns the current version of the CLI",
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("vf-admin/" + utils.GetVersion())
-	},
+	Run:   version.CmdRun,
 }
 
 func init() {
