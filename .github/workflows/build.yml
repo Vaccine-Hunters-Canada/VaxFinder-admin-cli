@@ -8,10 +8,6 @@ on:
       version:
         description: "Version of the release (Help: https://semver.org)"
         required: true
-      baseUrl:
-        description: "Base URL of the VaxFinder REST API"
-        required: true
-        default: "https://vax-availability-api.azurewebsites.net"
       tagMessage:
         description: "Tagging message"
         required: false
@@ -31,16 +27,6 @@ jobs:
             exit 1
           fi
           echo "\"$version\" is a valid version."
-      - name: "Validate input: Base URL"
-        run: |
-          url="${{ github.event.inputs.baseUrl }}"
-          # Regex Credit: https://stackoverflow.com/questions/3183444/check-for-valid-link-url
-          if [[ ! $url =~ ^((https)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]) ]];
-          then
-            echo "\"$url\" is not a valid url."
-            exit 1
-          fi
-          echo "\"$url\" is a valid url."
 
   stable-branch:
     name: Merge main into stable branch
@@ -182,4 +168,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.ADMIN_ACCESS_TOKEN }}
           VERSION: ${{ github.event.inputs.version }}
-          BASE_URL: ${{ github.event.inputs.baseUrl }}

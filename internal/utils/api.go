@@ -5,7 +5,7 @@ import (
 	"vf-admin/internal/api"
 )
 
-var baseURL = "https://vax-availability-api-staging.azurewebsites.net"
+var baseURL string
 
 // SetBaseURL sets the base URL for use later in HTTP requests.
 func SetBaseURL(b string) {
