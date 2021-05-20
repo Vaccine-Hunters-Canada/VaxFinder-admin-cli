@@ -10,7 +10,7 @@
 
 <div align="center">
     <a href="https://golang.org/dl/">
-        <img src="https://img.shields.io/github/go-mod/go-version/Vaccine-Hunters-Canada/VaxFinder-admin-cli" alt="Go v1.16">
+        <img src="https://img.shields.io/github/go-mod/go-version/Vaccine-Hunters-Canada/VaxFinder-admin-cli" alt="Go v1.15">
     </a>
     <a href="https://goreportcard.com/report/github.com/Vaccine-Hunters-Canada/VaxFinder-admin-cli">
         <img src="https://goreportcard.com/badge/github.com/Vaccine-Hunters-Canada/VaxFinder-admin-cli" alt="Go Report Card">

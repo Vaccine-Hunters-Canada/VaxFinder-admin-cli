@@ -7,10 +7,10 @@ jobs:
     if: ${{ !contains(github.event.head_commit.author.name, 'github-actions') }}
     runs-on: ubuntu-latest
     steps:
-      - name: Install Go v1.16
+      - name: Install Go v1.15
         uses: actions/setup-go@v2
         with:
-          go-version: "1.16"
+          go-version: "1.15"
 
       # Checkout the commit SHA that triggered the workflow
       - name: Checkout code
