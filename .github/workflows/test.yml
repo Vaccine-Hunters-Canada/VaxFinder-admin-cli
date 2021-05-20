@@ -3,10 +3,10 @@ on: [push, pull_request]
 jobs:
   test:
     if: ${{ !contains(github.event.head_commit.author.name, 'github-actions') }}
-    # Run tests on multiple operating systems using Go v1.16
+    # Run tests on multiple operating systems using Go v1.15
     strategy:
       matrix:
-        go-version: [1.16]
+        go-version: [1.15]
         os: [ubuntu-latest, macos-latest, windows-latest]
     runs-on: ${{ matrix.os }}
     steps:
