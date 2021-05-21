@@ -13,6 +13,7 @@ vf-admin is a CLI to manage vaccine availabilities and other data for the Vaccin
 
 * [vf-admin address](vf-admin_address.md)	 - Manage addresss
 * [vf-admin configure](vf-admin_configure.md)	 - Configure a named profile with credentials
+* [vf-admin location](vf-admin_location.md)	 - Manage locations
 * [vf-admin organization](vf-admin_organization.md)	 - Manage organizations
 * [vf-admin requirement](vf-admin_requirement.md)	 - Manage requirements
 * [vf-admin va](vf-admin_va.md)	 - Manage vaccine availabilities
