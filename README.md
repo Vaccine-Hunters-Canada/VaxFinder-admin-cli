@@ -9,11 +9,20 @@
 <br/>
 
 <div align="center">
+    <a href="https://github.com/Vaccine-Hunters-Canada/VaxFinder-admin-cli/releases">
+        <img src="https://img.shields.io/github/v/release/Vaccine-Hunters-Canada/VaxFinder-admin-cli?include_prereleases" alt="Latest Release" />
+    </a>
     <a href="https://golang.org/dl/">
-        <img src="https://img.shields.io/github/go-mod/go-version/Vaccine-Hunters-Canada/VaxFinder-admin-cli" alt="Go v1.15">
+        <img src="https://img.shields.io/github/go-mod/go-version/Vaccine-Hunters-Canada/VaxFinder-admin-cli" alt="Go v1.15" />
     </a>
     <a href="https://goreportcard.com/report/github.com/Vaccine-Hunters-Canada/VaxFinder-admin-cli">
-        <img src="https://goreportcard.com/badge/github.com/Vaccine-Hunters-Canada/VaxFinder-admin-cli" alt="Go Report Card">
+        <img src="https://goreportcard.com/badge/github.com/Vaccine-Hunters-Canada/VaxFinder-admin-cli" alt="Go Report Card" />
+    </a>
+    <a href="https://github.com/Vaccine-Hunters-Canada/VaxFinder-admin-cli/actions/workflows/test.yml">
+        <img src="https://img.shields.io/github/workflow/status/Vaccine-Hunters-Canada/VaxFinder-admin-cli/Go%20Test/main?label=Tests&logo=github" alt="Tests" />
+    </a>
+    <a href="https://github.com/Vaccine-Hunters-Canada/VaxFinder-admin-cli/actions/workflows/docs.yml">
+        <img src="https://img.shields.io/github/workflow/status/Vaccine-Hunters-Canada/VaxFinder-admin-cli/CLI%20Docs%20(main)?label=Build%20Docs&logo=github" alt="Build Docs" />
     </a>
     <a href="https://discord.com/channels/822486436837326908/832366009091358731">
         <img src="https://img.shields.io/badge/-%23vax--ui--backend-7389D8?logo=discord&logoColor=ffffff&labelColor=6A7EC2" alt="Discord: #vax-ui-backend" />

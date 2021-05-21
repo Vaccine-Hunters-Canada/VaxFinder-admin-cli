@@ -38,11 +38,10 @@ changelog:
   sort: asc
   filters:
     exclude:
-      - '\bdocs?\b'
-      - '\btests?\b'
-      - '\bworkflows?\b'
-      - '\bactions?\b'
-      - '\bREADME\b'
+      - '^docs'
+      - '^test'
+      - '^ci'
+      - '^Merge'
       - Merge pull request
       - Merge branch
 release:
