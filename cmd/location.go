@@ -54,7 +54,7 @@ var locationUpdateCmd = &cobra.Command{
 	Use:   "update",
 	Short: "Update a location with a specified id",
 	Example: heredoc.Doc(`
-	# Add the location with id 15 to be active, have name "Guelph Hospital", postal code "N1E 4J4", website URL "http://www.gghorg.ca/", phone "(519) 822-5350", notes "Please call ahead to make an appointment.", tags "Guelph, Appointment", organization id 23 and address id 352.
+	# Update the location with id 15 to be active, have name "Guelph Hospital", postal code "N1E 4J4", website URL "http://www.gghorg.ca/", phone "(519) 822-5350", notes "Please call ahead to make an appointment.", tags "Guelph, Appointment", organization id 23 and address id 352.
 	$ vf-admin location update 15 --active 1 --name "Guelph Hospital" --postcode "N1E4J4" --url "http://www.gghorg.ca" --phone "(519) 822-5350" --notes "Please call ahead to make an appointment." --tags "Guelph, Appointment" --organization 23 --address 352
 	`),
 	Args: cobra.ExactArgs(1),
