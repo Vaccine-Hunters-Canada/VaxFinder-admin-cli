@@ -39,6 +39,11 @@ jobs:
           ref: main
           token: ${{ secrets.ADMIN_ACCESS_TOKEN }}
 
+      - name: Configure Git user
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
+
       - name: Merge main into stable branch
         uses: devmasx/merge-branch@v1.3.1
         with:
@@ -73,7 +78,7 @@ jobs:
           git add .
           git status
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m ':memo: Auto generated docs in `docs/${{ github.event.inputs.version }}`.'
+            git commit -m 'docs: Auto generated CLI docs in `docs/${{ github.event.inputs.version }}`.'
             git push
           fi
 
@@ -95,6 +100,11 @@ jobs:
           ref: ${{ needs.generate-docs.outputs.new_sha }}
           fetch-depth: 0
           token: ${{ secrets.ADMIN_ACCESS_TOKEN }}
+
+      - name: Configure Git user
+        run: |
+          git config --global user.name github-actions
+          git config --global user.email github-actions@github.com
 
       - name: Merge stable into main branch
         uses: devmasx/merge-branch@v1.3.1

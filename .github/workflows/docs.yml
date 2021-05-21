@@ -31,6 +31,6 @@ jobs:
           git add .
           git status
           if [ -n "$(git status --porcelain)" ]; then
-            git commit -m ':memo: Auto generated docs in `docs/source`.'
+            git commit -m 'docs: Auto generated CLI docs in `docs/source`.'
             git push
           fi
