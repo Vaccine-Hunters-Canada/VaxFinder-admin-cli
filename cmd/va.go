@@ -24,7 +24,7 @@ var vaListCmd = &cobra.Command{
 	Args:  cobra.ExactArgs(0),
 }
 
-// Command: `vf-admin va add <id>`
+// Command: `vf-admin va add`
 var vaAddCmd = &cobra.Command{
 	Use:   "add",
 	Short: "Add a new vaccine availability",
