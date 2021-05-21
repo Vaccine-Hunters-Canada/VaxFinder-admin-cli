@@ -1,18 +1,0 @@
-Using config file: /home/gary/.vf-admin.json
-[K[?25l.   List requirements: Making request to server[K[?25l..  List requirements: Making request to server[K[?25l... List requirements: Making request to server[K[?25l .. List requirements: Making request to server[K[?25hSuccessfully got requirements
-
-  ID |        NAME        |          DESCRIPTION           |           CREATED AT            
------+--------------------+--------------------------------+---------------------------------
-   1 | High-Risk          | Highest- and High-Risk Health  | 2021-05-02 03:50:10.143 +0000   
-     |                    | Conditions                     | +0000                           
-   2 | Medical Conditions | Organ Transplant Recipients    | 2021-05-02 03:50:10.167 +0000   
-     |                    | and Individuals Receiving      | +0000                           
-     |                    | Active Cancer Treatment        |                                 
-   3 | Healthcare Workers | Healthcare Workers and         | 2021-05-02 03:50:10.17 +0000    
-     |                    | Community Providers            | +0000                           
-   4 | HotSpot            | 18+ in Specific Postal Codes   | 2021-05-02 03:50:10.177 +0000   
-     |                    |                                | +0000                           
-   5 | Indigenous Adults  | Indigenous Adults              | 2021-05-02 03:50:10.18 +0000    
-     |                    |                                | +0000                           
-   6 | Caregivers         | Caregivers                     | 2021-05-02 03:50:10.19 +0000    
-     |                    |                                | +0000                           
