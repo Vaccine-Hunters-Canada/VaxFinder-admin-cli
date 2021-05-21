@@ -22,7 +22,7 @@ func ConvertExpandedLocationJSONToTableRow(json *api.LocationExpandedResponse) [
 
 	orgString := ""
 	if json.Organization != nil {
-		orgString = fmt.Sprintf("organization id: %d\n %s", json.Organization.Id, utils.CoalesceString(&json.Organization.ShortName))
+		orgString = fmt.Sprintf("organization id: %d\n%s", json.Organization.Id, utils.CoalesceString(&json.Organization.ShortName))
 	}
 	data = append(data, orgString)
 
