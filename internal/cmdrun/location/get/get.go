@@ -3,7 +3,6 @@ package get
 import (
 	"context"
 	"errors"
-	"fmt"
 	"strconv"
 	locationutils "vf-admin/internal/cmdrun/location"
 	"vf-admin/internal/utils"
@@ -52,7 +51,6 @@ func CmdRunE(cmd *cobra.Command, args []string) error {
 
 	colNames := []string{"id", "name", "active", "postcode", "phone", "notes", "url", "tags", "org", "address", "created at"}
 	json := res.JSON200
-	fmt.Print(json)
 	data := [][]string{
 		locationutils.ConvertExpandedLocationJSONToTableRow(json),
 	}
