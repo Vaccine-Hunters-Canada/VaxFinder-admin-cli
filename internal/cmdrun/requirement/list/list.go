@@ -3,6 +3,7 @@ package list
 import (
 	"context"
 	"strconv"
+	"vf-admin/internal/api"
 	"vf-admin/internal/utils"
 
 	"github.com/fatih/color"
@@ -13,7 +14,7 @@ import (
 func CmdRun(cmd *cobra.Command, args []string) {
 
 	// Create the API client using the authentication key for requests
-	client, cErr := utils.GetAPIClient()
+	client, cErr := api.GetAPIClient()
 	if cErr != nil {
 		color.Red(cErr.Error())
 	}

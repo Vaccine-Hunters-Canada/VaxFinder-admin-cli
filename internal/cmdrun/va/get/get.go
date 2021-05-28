@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"strconv"
+	"vf-admin/internal/api"
 	"vf-admin/internal/utils"
 
 	"github.com/fatih/color"
@@ -15,7 +16,7 @@ func CmdRunE(cmd *cobra.Command, args []string) error {
 	id := args[0]
 
 	// Create the API client
-	client, cErr := utils.GetAPIClient()
+	client, cErr := api.GetAPIClient()
 	if cErr != nil {
 		color.Red(cErr.Error())
 		return nil

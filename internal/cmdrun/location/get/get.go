@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"strconv"
+	"vf-admin/internal/api"
 	locationutils "vf-admin/internal/cmdrun/location"
 	"vf-admin/internal/utils"
 
@@ -19,7 +20,7 @@ func CmdRunE(cmd *cobra.Command, args []string) error {
 	}
 
 	// Create the API client
-	client, cErr := utils.GetAPIClient()
+	client, cErr := api.GetAPIClient()
 	if cErr != nil {
 		color.Red(cErr.Error())
 		return nil

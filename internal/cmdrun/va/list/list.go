@@ -33,7 +33,7 @@ func CmdRunE(cmd *cobra.Command, args []string) error {
 	params := api.ListVaccineAvailabilityApiV1VaccineAvailabilityGetParams{PostalCode: postcode, MinDate: minDate}
 
 	// Create the API client
-	client, cErr := utils.GetAPIClient()
+	client, cErr := api.GetAPIClient()
 	if cErr != nil {
 		color.Red(cErr.Error())
 		return nil

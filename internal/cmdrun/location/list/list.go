@@ -2,6 +2,7 @@ package list
 
 import (
 	"context"
+	"vf-admin/internal/api"
 	locationutils "vf-admin/internal/cmdrun/location"
 	"vf-admin/internal/utils"
 
@@ -12,7 +13,7 @@ import (
 // CmdRun is what's executed when running `vf-admin location list`
 func CmdRun(cmd *cobra.Command, args []string) {
 	// Create the API client
-	client, cErr := utils.GetAPIClient()
+	client, cErr := api.GetAPIClient()
 	if cErr != nil {
 		color.Red(cErr.Error())
 	}

@@ -3,6 +3,7 @@ package list
 import (
 	"context"
 	"strconv"
+	"vf-admin/internal/api"
 	"vf-admin/internal/utils"
 
 	"github.com/fatih/color"
@@ -12,7 +13,7 @@ import (
 // CmdRunE is what's executed when running `vf-admin address list`
 func CmdRunE(cmd *cobra.Command, args []string) error {
 	// Create the API client
-	client, cErr := utils.GetAPIClient()
+	client, cErr := api.GetAPIClient()
 	if cErr != nil {
 		color.Red(cErr.Error())
 		return nil
