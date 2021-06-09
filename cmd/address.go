@@ -1,11 +1,14 @@
 package cmd
 
 import (
-	"vf-admin/internal/cmdrun/address/add"
-	"vf-admin/internal/cmdrun/address/get"
-	"vf-admin/internal/cmdrun/address/list"
-	"vf-admin/internal/cmdrun/address/remove"
-	"vf-admin/internal/cmdrun/address/update"
+	"github.com/fatih/color"
+	"vf-admin/internal/api/address/add"
+	"vf-admin/internal/api/address/get"
+	"vf-admin/internal/api/address/list"
+	"vf-admin/internal/api/address/remove"
+	"vf-admin/internal/api/address/update"
+	"vf-admin/internal/cmdrun"
+	"vf-admin/internal/utils"
 
 	"github.com/MakeNowJust/heredoc"
 	"github.com/spf13/cobra"
@@ -14,7 +17,7 @@ import (
 // Command: `vf-admin address`
 var addressCmd = &cobra.Command{
 	Use:   "address",
-	Short: "Manage addresss",
+	Short: "Manage addresses",
 }
 
 // Command: `vf-admin address get <id>`
@@ -26,7 +29,15 @@ var addressGetCmd = &cobra.Command{
 			$ vf-admin address get 1
 	`),
 	Args: cobra.ExactArgs(1),
-	RunE: get.CmdRunE,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		var op get.HTTPOperation
+		if err := op.SetRequestURLArguments(args); err != nil {
+			return err
+		}
+		cmdrun.RunHTTPOperation(op)
+
+		return nil
+	},
 }
 
 // Command: `vf-admin address list`
@@ -38,7 +49,10 @@ var addressListCmd = &cobra.Command{
 			$ vf-admin address list
 	`),
 	Args: cobra.ExactArgs(0),
-	RunE: list.CmdRunE,
+	Run: func(cmd *cobra.Command, args []string) {
+		var op list.HTTPOperation
+		cmdrun.RunHTTPOperation(op)
+	},
 }
 
 // Command: `vf-admin address add`
@@ -47,10 +61,55 @@ var addressAddCmd = &cobra.Command{
 	Short: "Add a new address",
 	Example: heredoc.Doc(`
 			# Add a new address with province "Ontario", postal code "K1A0A9", latitude "45.424807" and longitude "-75.699234"
-			$ vf-admin address add --province "Ontario" --postcode "K1A0A9" --latitude "45.424807"--longitude "-75.699234"
+			$ vf-admin address add --province "Ontario" --postcode "K1A0A9" --latitude "45.424807" --longitude "-75.699234"
 	`),
 	Args: cobra.ExactArgs(0),
-	RunE: add.CmdRunE,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		// Retrieve the authentication key from configuration file
+		key, kErr := utils.GetKeyFromProfile(cmd)
+		if kErr != nil {
+			color.Red(kErr.Error())
+			return nil
+		}
+
+		// Retrieve the flags to be placed inside the HTTP body
+		flags := cmd.Flags()
+		province, _ := flags.GetString("province")
+		postcode, _ := flags.GetString("postcode")
+		latitude, _ := flags.GetFloat32("latitude")
+		longitude, _ := flags.GetFloat32("longitude")
+		var line1, line2, city *string
+		if flags.Changed("line1") {
+			t, _ := flags.GetString("line1")
+			line1 = &t
+		} else {
+			line1 = nil
+		}
+		if flags.Changed("line2") {
+			t, _ := flags.GetString("line2")
+			line2 = &t
+		} else {
+			line2 = nil
+		}
+		if flags.Changed("city") {
+			t, _ := flags.GetString("city")
+			city = &t
+		} else {
+			city = nil
+		}
+
+		var op add.HTTPOperation
+		op.SetAuthKey(key)
+		if err := op.SetRequestURLArguments(args); err != nil {
+			return err
+		}
+		if err := op.SetRequestBody(province, postcode, latitude, longitude, line1, line2, city); err != nil {
+			return err
+		}
+		cmdrun.RunHTTPOperation(op)
+
+		return nil
+	},
 }
 
 // Command: `vf-admin address update <id>`
@@ -59,10 +118,55 @@ var addressUpdateCmd = &cobra.Command{
 	Short: "Update an address with a specified id",
 	Example: heredoc.Doc(`
 			# Update the address with id 20 to have province "Ontario", postal code "K1A0A9", latitude "45.424807" and longitude "-75.699234"
-			$ vf-admin address update 20 --province "Ontario" --postcode "K1A0A9" --latitude "45.424807"--longitude "-75.699234"
+			$ vf-admin address update 20 --province "Ontario" --postcode "K1A0A9" --latitude "45.424807" --longitude "-75.699234"
 	`),
 	Args: cobra.ExactArgs(1),
-	RunE: update.CmdRunE,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		// Retrieve the authentication key from configuration file
+		key, kErr := utils.GetKeyFromProfile(cmd)
+		if kErr != nil {
+			color.Red(kErr.Error())
+			return nil
+		}
+
+		// Retrieve the flags to be placed inside the HTTP body
+		flags := cmd.Flags()
+		province, _ := flags.GetString("province")
+		postcode, _ := flags.GetString("postcode")
+		latitude, _ := flags.GetFloat32("latitude")
+		longitude, _ := flags.GetFloat32("longitude")
+		var line1, line2, city *string
+		if flags.Changed("line1") {
+			t, _ := flags.GetString("line1")
+			line1 = &t
+		} else {
+			line1 = nil
+		}
+		if flags.Changed("line2") {
+			t, _ := flags.GetString("line2")
+			line2 = &t
+		} else {
+			line2 = nil
+		}
+		if flags.Changed("city") {
+			t, _ := flags.GetString("city")
+			city = &t
+		} else {
+			city = nil
+		}
+
+		var op update.HTTPOperation
+		op.SetAuthKey(key)
+		if err := op.SetRequestURLArguments(args); err != nil {
+			return err
+		}
+		if err := op.SetRequestBody(province, postcode, latitude, longitude, line1, line2, city); err != nil {
+			return err
+		}
+		cmdrun.RunHTTPOperation(op)
+
+		return nil
+	},
 }
 
 // Command: `vf-admin address remove <id>`
@@ -74,7 +178,23 @@ var addressRemoveCmd = &cobra.Command{
 			$ vf-admin address remove 20
 	`),
 	Args: cobra.ExactArgs(1),
-	RunE: remove.CmdRunE,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		// Retrieve the authentication key from configuration file
+		key, kErr := utils.GetKeyFromProfile(cmd)
+		if kErr != nil {
+			color.Red(kErr.Error())
+			return nil
+		}
+
+		var op remove.HTTPOperation
+		op.SetAuthKey(key)
+		if err := op.SetRequestURLArguments(args); err != nil {
+			return err
+		}
+		cmdrun.RunHTTPOperation(op)
+
+		return nil
+	},
 }
 
 func init() {
