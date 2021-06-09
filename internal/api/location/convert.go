@@ -1,4 +1,4 @@
-package locationutils
+package location
 
 import (
 	"fmt"
