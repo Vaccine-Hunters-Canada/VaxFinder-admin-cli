@@ -7,8 +7,8 @@ import (
 	"github.com/fatih/color"
 )
 
-// HTTPOpCmdRun executes an HTTP operation and displays the result as a table (if any) for CLI commands
-func HTTPOpCmdRun(op api.HTTPOperation) {
+// RunHTTPOperation executes an HTTP operation and displays the result as a table (if any) for CLI commands
+func RunHTTPOperation(op api.HTTPOperation) {
 	// Create spinner
 	action, actionDone, name := op.GetDetails()
 	spinner, sErr := utils.GetDefaultSpinnerForHTTPOp(action, actionDone, name)
@@ -18,7 +18,7 @@ func HTTPOpCmdRun(op api.HTTPOperation) {
 	}
 	_ = spinner.Start()
 
-	// Make HTTP request and
+	// Make HTTP request and get response
 	tbl, rErr := op.GetResponseAsArray()
 
 	if rErr != nil {

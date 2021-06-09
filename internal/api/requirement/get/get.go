@@ -1,4 +1,4 @@
-package requirement
+package get
 
 import (
 	"context"
@@ -7,18 +7,19 @@ import (
 	"vf-admin/internal/api"
 )
 
-// Get abstracts away the HTTP GET operation for requirement
-type Get struct{}
+// HTTPOperation abstracts away the current HTTP operation
+type HTTPOperation struct{}
 
 var id int
+var authKey string
 
-// GetDetails returns the details of the HTTP operation
-func (Get) GetDetails() (string, string, string) {
-	return "get", "got", "requirement"
+// SetAuthKey sets the authentication key to be used for the HTTP operation
+func (HTTPOperation) SetAuthKey(key string) {
+	authKey = key
 }
 
-// SetRequestURLArguments sets the appropriate arguments for the HTTP operation
-func (Get) SetRequestURLArguments(args []string) error {
+// SetRequestURLArguments sets the appropriate url arguments for the HTTP operation
+func (HTTPOperation) SetRequestURLArguments(args []string) error {
 	converted, err := strconv.Atoi(args[0])
 	if err != nil {
 		return errors.New("expecting id as integer")
@@ -28,15 +29,20 @@ func (Get) SetRequestURLArguments(args []string) error {
 	return nil
 }
 
+// GetDetails returns the details of the HTTP operation
+func (HTTPOperation) GetDetails() (string, string, string) {
+	return "get", "got", "requirement " + strconv.Itoa(id)
+}
+
 // GetVerboseResponseFieldNames returns the field names to be used when rendering the response as a table
-func (Get) GetVerboseResponseFieldNames() []string {
+func (HTTPOperation) GetVerboseResponseFieldNames() []string {
 	return []string{"id", "name", "description", "created at"}
 }
 
 // GetResponseAsArray executes the HTTP operation and returns an array to be used when rendering the response as a table
-func (Get) GetResponseAsArray() ([][]string, error) {
+func (HTTPOperation) GetResponseAsArray() ([][]string, error) {
 	// Create the API client
-	client, cErr := api.GetAPIClient()
+	client, cErr := api.GetAPIClientFromKey(authKey)
 	if cErr != nil {
 		return nil, cErr
 	}

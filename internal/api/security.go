@@ -17,6 +17,10 @@ func GetAPIClientFromKey(key string) (*ClientWithResponses, error) {
 		return nil, err
 	}
 
+	if key == "" {
+		return GetAPIClient()
+	}
+
 	return NewClientWithResponses(
 		utils.GetBaseURL(),
 		WithBaseURL(utils.GetBaseURL()),
