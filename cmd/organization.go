@@ -1,11 +1,14 @@
 package cmd
 
 import (
-	"vf-admin/internal/cmdrun/organization/add"
-	"vf-admin/internal/cmdrun/organization/get"
-	"vf-admin/internal/cmdrun/organization/list"
-	"vf-admin/internal/cmdrun/organization/remove"
-	"vf-admin/internal/cmdrun/organization/update"
+	"github.com/fatih/color"
+	"vf-admin/internal/api/organization/add"
+	"vf-admin/internal/api/organization/get"
+	"vf-admin/internal/api/organization/list"
+	"vf-admin/internal/api/organization/remove"
+	"vf-admin/internal/api/organization/update"
+	"vf-admin/internal/cmdrun"
+	"vf-admin/internal/utils"
 
 	"github.com/MakeNowJust/heredoc"
 	"github.com/spf13/cobra"
@@ -26,7 +29,15 @@ var organizationGetCmd = &cobra.Command{
 			$ vf-admin organization get 1
 	`),
 	Args: cobra.ExactArgs(1),
-	RunE: get.CmdRunE,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		var op get.HTTPOperation
+		if err := op.SetRequestURLArguments(args); err != nil {
+			return err
+		}
+		cmdrun.RunHTTPOperation(op)
+
+		return nil
+	},
 }
 
 // Command: `vf-admin organization list`
@@ -38,7 +49,10 @@ var organizationListCmd = &cobra.Command{
 			$ vf-admin organization list
 	`),
 	Args: cobra.ExactArgs(0),
-	RunE: list.CmdRunE,
+	Run: func(cmd *cobra.Command, args []string) {
+		var op list.HTTPOperation
+		cmdrun.RunHTTPOperation(op)
+	},
 }
 
 // Command: `vf-admin organization add`
@@ -50,7 +64,49 @@ var organizationAddCmd = &cobra.Command{
 			$ vf-admin organization add --shortName WHO --fullName "World Health Organization" --description "The World Health Organization is a specialized agency of the United Nations responsible for international public health." --url "https://www.who.int/"
 	`),
 	Args: cobra.ExactArgs(0),
-	RunE: add.CmdRunE,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		// Retrieve the authentication key from configuration file
+		key, kErr := utils.GetKeyFromProfile(cmd)
+		if kErr != nil {
+			color.Red(kErr.Error())
+			return nil
+		}
+
+		// Retrieve the flags to be placed inside the HTTP body
+		flags := cmd.Flags()
+		shortName, _ := flags.GetString("shortName")
+		var fullName, description, url *string
+		if flags.Changed("fullName") {
+			t, _ := flags.GetString("fullName")
+			fullName = &t
+		} else {
+			fullName = nil
+		}
+		if flags.Changed("description") {
+			t, _ := flags.GetString("description")
+			description = &t
+		} else {
+			description = nil
+		}
+		if flags.Changed("url") {
+			t, _ := flags.GetString("url")
+			url = &t
+		} else {
+			url = nil
+		}
+
+		var op add.HTTPOperation
+		op.SetAuthKey(key)
+		if err := op.SetRequestURLArguments(args); err != nil {
+			return err
+		}
+		if err := op.SetRequestBody(shortName, fullName, description, url); err != nil {
+			return err
+		}
+		cmdrun.RunHTTPOperation(op)
+
+		return nil
+	},
 }
 
 // Command: `vf-admin organization update <id>`
@@ -62,7 +118,49 @@ var organizationUpdateCmd = &cobra.Command{
 			$ vf-admin organization update 20 --shortName WHO --fullName "World Health Organization" --description "The World Health Organization is a specialized agency of the United Nations responsible for international public health." --url "https://www.who.int/"
 	`),
 	Args: cobra.ExactArgs(1),
-	RunE: update.CmdRunE,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		// Retrieve the authentication key from configuration file
+		key, kErr := utils.GetKeyFromProfile(cmd)
+		if kErr != nil {
+			color.Red(kErr.Error())
+			return nil
+		}
+
+		// Retrieve the flags to be placed inside the HTTP body
+		flags := cmd.Flags()
+		shortName, _ := flags.GetString("shortName")
+		var fullName, description, url *string
+		if flags.Changed("fullName") {
+			t, _ := flags.GetString("fullName")
+			fullName = &t
+		} else {
+			fullName = nil
+		}
+		if flags.Changed("description") {
+			t, _ := flags.GetString("description")
+			description = &t
+		} else {
+			description = nil
+		}
+		if flags.Changed("url") {
+			t, _ := flags.GetString("url")
+			url = &t
+		} else {
+			url = nil
+		}
+
+		var op update.HTTPOperation
+		op.SetAuthKey(key)
+		if err := op.SetRequestURLArguments(args); err != nil {
+			return err
+		}
+		if err := op.SetRequestBody(shortName, fullName, description, url); err != nil {
+			return err
+		}
+		cmdrun.RunHTTPOperation(op)
+
+		return nil
+	},
 }
 
 // Command: `vf-admin organization remove <id>`
@@ -74,7 +172,23 @@ var organizationRemoveCmd = &cobra.Command{
 			$ vf-admin organization remove 20
 	`),
 	Args: cobra.ExactArgs(1),
-	RunE: remove.CmdRunE,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		// Retrieve the authentication key from configuration file
+		key, kErr := utils.GetKeyFromProfile(cmd)
+		if kErr != nil {
+			color.Red(kErr.Error())
+			return nil
+		}
+
+		var op remove.HTTPOperation
+		op.SetAuthKey(key)
+		if err := op.SetRequestURLArguments(args); err != nil {
+			return err
+		}
+		cmdrun.RunHTTPOperation(op)
+
+		return nil
+	},
 }
 
 func init() {
