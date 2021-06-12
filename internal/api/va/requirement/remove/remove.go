@@ -1,18 +1,16 @@
-package list
+package remove
 
 import (
 	"context"
-	"strconv"
 	"vf-admin/internal/api"
-	"vf-admin/internal/utils"
 )
 
 // HTTPOperation abstracts away the current HTTP operation
 type HTTPOperation struct{}
 
+var vaID string
+var reqID string
 var authKey string
-var id string
-var postCode string
 
 // SetAuthKey sets the authentication key to be used for the HTTP operation
 func (HTTPOperation) SetAuthKey(key string) {
@@ -21,19 +19,20 @@ func (HTTPOperation) SetAuthKey(key string) {
 
 // SetRequestURLArguments sets the appropriate url arguments for the HTTP operation
 func (HTTPOperation) SetRequestURLArguments(args []string) error {
-	id = args[0]
+	vaID = args[0]
+	reqID = args[1]
 
 	return nil
 }
 
 // GetDetails returns the details of the HTTP operation
 func (HTTPOperation) GetDetails() (string, string, string) {
-	return "list", "got", "vaccine availability"
+	return "remove", "removed", "va requirement"
 }
 
 // GetVerboseResponseFieldNames returns the field names to be used when rendering the response as a table
 func (HTTPOperation) GetVerboseResponseFieldNames() []string {
-	return []string{"id", "date", "number available", "number total", "vaccine", "input type", "tags", "location", "organization", "created at"}
+	return nil
 }
 
 // GetResponseAsArray executes the HTTP operation and returns an array to be used when rendering the response as a table
@@ -44,23 +43,13 @@ func (HTTPOperation) GetResponseAsArray() ([][]string, error) {
 		return nil, cErr
 	}
 
-	res, rErr := client.ListAddressesApiV1AddressesGetWithResponse(context.Background())
+	res, rErr := client.DeleteRequirementForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdRequirementsRequirementIdDeleteWithResponse(context.Background(), vaID, reqID)
 	if rErr != nil {
 		return nil, rErr
 	}
 
-	if res.StatusCode() != 200 {
+	if res.StatusCode() != 204 {
 		return nil, api.HandleHTTPError(res.StatusCode(), res.Body)
-	}
-
-	if res.JSON200 != nil {
-		var data [][]string
-		for _, row := range *res.JSON200 {
-			data = append(data, []string{
-				strconv.Itoa(row.Id), utils.CoalesceString(row.Line1), utils.CoalesceString(row.Line2), utils.CoalesceString(row.City), row.Postcode, row.Province /*row.Latitude.String(), row.Longitude.String(),*/, row.CreatedAt.String(),
-			})
-		}
-		return data, nil
 	}
 
 	return nil, nil

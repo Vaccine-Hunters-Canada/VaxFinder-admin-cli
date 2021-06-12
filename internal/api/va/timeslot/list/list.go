@@ -2,17 +2,15 @@ package list
 
 import (
 	"context"
-	"strconv"
 	"vf-admin/internal/api"
-	"vf-admin/internal/utils"
 )
 
 // HTTPOperation abstracts away the current HTTP operation
 type HTTPOperation struct{}
 
 var authKey string
-var id string
-var postCode string
+
+var vaID string
 
 // SetAuthKey sets the authentication key to be used for the HTTP operation
 func (HTTPOperation) SetAuthKey(key string) {
@@ -21,19 +19,19 @@ func (HTTPOperation) SetAuthKey(key string) {
 
 // SetRequestURLArguments sets the appropriate url arguments for the HTTP operation
 func (HTTPOperation) SetRequestURLArguments(args []string) error {
-	id = args[0]
+	vaID = args[0]
 
 	return nil
 }
 
 // GetDetails returns the details of the HTTP operation
 func (HTTPOperation) GetDetails() (string, string, string) {
-	return "list", "got", "vaccine availability"
+	return "list", "got", "va timeslot"
 }
 
 // GetVerboseResponseFieldNames returns the field names to be used when rendering the response as a table
 func (HTTPOperation) GetVerboseResponseFieldNames() []string {
-	return []string{"id", "date", "number available", "number total", "vaccine", "input type", "tags", "location", "organization", "created at"}
+	return []string{"id", "vaccine availability", "time", "taken at", "created at"}
 }
 
 // GetResponseAsArray executes the HTTP operation and returns an array to be used when rendering the response as a table
@@ -44,7 +42,7 @@ func (HTTPOperation) GetResponseAsArray() ([][]string, error) {
 		return nil, cErr
 	}
 
-	res, rErr := client.ListAddressesApiV1AddressesGetWithResponse(context.Background())
+	res, rErr := client.ListTimeslotsForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsGetWithResponse(context.Background(), vaID)
 	if rErr != nil {
 		return nil, rErr
 	}
@@ -56,8 +54,14 @@ func (HTTPOperation) GetResponseAsArray() ([][]string, error) {
 	if res.JSON200 != nil {
 		var data [][]string
 		for _, row := range *res.JSON200 {
+			var takenAt string
+			if row.TakenAt == nil {
+				takenAt = ""
+			} else {
+				takenAt = row.TakenAt.String()
+			}
 			data = append(data, []string{
-				strconv.Itoa(row.Id), utils.CoalesceString(row.Line1), utils.CoalesceString(row.Line2), utils.CoalesceString(row.City), row.Postcode, row.Province /*row.Latitude.String(), row.Longitude.String(),*/, row.CreatedAt.String(),
+				row.Id, row.VaccineAvailability, row.Time.String(), takenAt, row.CreatedAt.String(),
 			})
 		}
 		return data, nil
