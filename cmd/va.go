@@ -54,9 +54,10 @@ var vaListCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		var op list.HTTPOperation
 
-		if err := op.SetRequestURLArguments(args); err != nil {
+		if err := op.SetRequestURLArgumentsFromFlags(cmd.Flags()); err != nil {
 			return err
 		}
+
 		cmdrun.RunHTTPOperation(op)
 
 		return nil
