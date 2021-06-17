@@ -98,26 +98,12 @@ var vaRequirementUpdateCmd = &cobra.Command{
 		}
 
 		flags := cmd.Flags()
-
-		var requirement *int
-		var active *bool
-
-		if flags.Changed("requirement") {
-			t, _ := flags.GetInt("requirement")
-			requirement = &t
-		} else {
-			requirement = nil
-		}
-		if flags.Changed("active") {
-			t, _ := flags.GetBool("active")
-			active = &t
-		} else {
-			active = nil
-		}
+		requirement, _ := flags.GetInt("requirement")
+		active, _ := flags.GetBool("active")
 
 		op.SetAuthKey(key)
 
-		if err := op.SetRequestBody(*requirement, *active); err != nil {
+		if err := op.SetRequestBody(requirement, active); err != nil {
 			return err
 		}
 
