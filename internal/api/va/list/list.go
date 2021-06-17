@@ -9,8 +9,6 @@ import (
 	"vf-admin/internal/utils"
 
 	openapi_types "github.com/deepmap/oapi-codegen/pkg/types"
-	"github.com/fatih/color"
-	"github.com/spf13/pflag"
 )
 
 // HTTPOperation abstracts away the current HTTP operation
@@ -18,8 +16,7 @@ type HTTPOperation struct{}
 
 var authKey string
 var id string
-var postCode string
-var minDate *openapi_types.Date
+var params = api.ListVaccineAvailabilityApiV1VaccineAvailabilityGetParams{}
 
 // SetAuthKey sets the authentication key to be used for the HTTP operation
 func (HTTPOperation) SetAuthKey(key string) {
@@ -31,18 +28,11 @@ func (HTTPOperation) SetRequestURLArguments(args []string) error {
 	return nil
 }
 
-// SetRequestURLArgumentsFromFlags sets the appropriate url arguments from the command flags
-func (HTTPOperation) SetRequestURLArgumentsFromFlags(flags *pflag.FlagSet) error {
-	postCode, _ = flags.GetString("postcode")
-
-	if flags.Changed("mindate") {
-		t, _ := flags.GetString("mindate")
-		t2, tErr := time.Parse("2006-01-02", t)
-		if tErr != nil {
-			color.Red(tErr.Error())
-			return nil
-		}
-		minDate = &openapi_types.Date{Time: t2}
+// SetRequestURLQueryParameters sets the appropriate url query parameters for the HTTP operation
+func (HTTPOperation) SetRequestURLQueryParameters(postcode string, minDate time.Time) error {
+	params.PostalCode = postcode
+	if !minDate.IsZero() {
+		params.MinDate = &openapi_types.Date{Time: minDate}
 	}
 
 	return nil
@@ -65,8 +55,6 @@ func (HTTPOperation) GetResponseAsArray() ([][]string, error) {
 	if cErr != nil {
 		return nil, cErr
 	}
-
-	params := api.ListVaccineAvailabilityApiV1VaccineAvailabilityGetParams{PostalCode: postCode, MinDate: minDate}
 
 	res, rErr := client.ListVaccineAvailabilityApiV1VaccineAvailabilityGetWithResponse(context.Background(), &params)
 	if rErr != nil {

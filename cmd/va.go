@@ -53,11 +53,22 @@ var vaListCmd = &cobra.Command{
 	Args: cobra.ExactArgs(0),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		var op list.HTTPOperation
+		var minDate time.Time
 
-		if err := op.SetRequestURLArgumentsFromFlags(cmd.Flags()); err != nil {
-			return err
+		postalCode, _ := cmd.Flags().GetString("postcode")
+		if cmd.Flags().Changed("mindate") {
+			t, _ := cmd.Flags().GetString("mindate")
+			t2, tErr := time.Parse("2006-01-02", t)
+			minDate = t2
+			if tErr != nil {
+				color.Red(tErr.Error())
+				return nil
+			}
 		}
 
+		if err := op.SetRequestURLQueryParameters(postalCode, minDate); err != nil {
+			return err
+		}
 		cmdrun.RunHTTPOperation(op)
 
 		return nil
