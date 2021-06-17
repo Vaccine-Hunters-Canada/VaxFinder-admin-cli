@@ -26,7 +26,6 @@ func (HTTPOperation) SetRequestURLArguments(args []string) error {
 
 // SetRequestBody sets the appropriate body for the HTTP operation
 func (HTTPOperation) SetRequestBody(time time.Time) error {
-
 	body = api.CreateTimeslotForVaccineAvailabilityByIdApiV1VaccineAvailabilityVaccineAvailabilityIdTimeslotsPostJSONRequestBody{
 		Time: time,
 	}

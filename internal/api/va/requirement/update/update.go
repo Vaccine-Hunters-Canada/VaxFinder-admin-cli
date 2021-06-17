@@ -36,7 +36,7 @@ func (HTTPOperation) SetRequestBody(requirement int, active bool) error {
 
 // GetDetails returns the details of the HTTP operation
 func (HTTPOperation) GetDetails() (string, string, string) {
-	return "update", "updated", "va requirement"
+    return "update", "updated", "va requirement " + reqID
 }
 
 // GetVerboseResponseFieldNames returns the field names to be used when rendering the response as a table

@@ -26,7 +26,6 @@ func (HTTPOperation) SetRequestURLArguments(args []string) error {
 
 // SetRequestBody sets the appropriate body for the HTTP operation
 func (HTTPOperation) SetRequestBody(time time.Time, inputType api.InputTypeEnum, location int, numberAvailable int, numberTotal *int, tags *string, vaccine *int) error {
-
 	body = api.CreateVaccineAvailabilityApiV1VaccineAvailabilityPostJSONRequestBody{
 		Date:            time,
 		InputType:       inputType,

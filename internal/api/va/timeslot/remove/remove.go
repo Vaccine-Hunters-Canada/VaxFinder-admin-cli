@@ -27,7 +27,7 @@ func (HTTPOperation) SetRequestURLArguments(args []string) error {
 
 // GetDetails returns the details of the HTTP operation
 func (HTTPOperation) GetDetails() (string, string, string) {
-	return "remove", "removed", "va timeslot"
+    return "remove", "removed", "va timeslot " + tsID
 }
 
 // GetVerboseResponseFieldNames returns the field names to be used when rendering the response as a table
