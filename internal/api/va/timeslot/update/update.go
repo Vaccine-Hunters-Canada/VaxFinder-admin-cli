@@ -37,7 +37,7 @@ func (HTTPOperation) SetRequestBody(time time.Time, takenAt *interface{}) error 
 
 // GetDetails returns the details of the HTTP operation
 func (HTTPOperation) GetDetails() (string, string, string) {
-    return "update", "updated", "va timeslot " + tsID
+	return "update", "updated", "va timeslot " + tsID
 }
 
 // GetVerboseResponseFieldNames returns the field names to be used when rendering the response as a table
