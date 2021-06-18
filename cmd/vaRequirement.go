@@ -31,9 +31,10 @@ var vaRequirementListCmd = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		var op list.HTTPOperation
 
-		op.SetRequestURLArguments(args)
+		if err:= op.SetRequestURLArguments(args); err!= nil {
+			return err
+		}
 		cmdrun.RunHTTPOperation(op)
-
 		return nil
 	},
 }

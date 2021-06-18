@@ -221,9 +221,19 @@ var vaRemoveCmd = &cobra.Command{
 	Args: cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		var op remove.HTTPOperation
+
+		// Retrieve the authentication key from configuration file
+		key, kErr := utils.GetKeyFromProfile(cmd)
+		if kErr != nil {
+			color.Red(kErr.Error())
+			return nil
+		}
+
 		if err := op.SetRequestURLArguments(args); err != nil {
 			return err
 		}
+
+		op.SetAuthKey(key)
 		cmdrun.RunHTTPOperation(op)
 
 		return nil
