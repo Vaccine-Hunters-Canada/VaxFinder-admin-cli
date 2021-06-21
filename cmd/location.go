@@ -1,11 +1,14 @@
 package cmd
 
 import (
-	"vf-admin/internal/cmdrun/location/add"
-	"vf-admin/internal/cmdrun/location/get"
-	"vf-admin/internal/cmdrun/location/list"
-	"vf-admin/internal/cmdrun/location/remove"
-	"vf-admin/internal/cmdrun/location/update"
+	"github.com/fatih/color"
+	"vf-admin/internal/api/location/add"
+	"vf-admin/internal/api/location/get"
+	"vf-admin/internal/api/location/list"
+	"vf-admin/internal/api/location/remove"
+	"vf-admin/internal/api/location/update"
+	"vf-admin/internal/cmdrun"
+	"vf-admin/internal/utils"
 
 	"github.com/MakeNowJust/heredoc"
 	"github.com/spf13/cobra"
@@ -26,7 +29,15 @@ var locationGetCmd = &cobra.Command{
 			$ vf-admin location get 1
 	`),
 	Args: cobra.ExactArgs(1),
-	RunE: get.CmdRunE,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		var op get.HTTPOperation
+		if err := op.SetRequestURLArguments(args); err != nil {
+			return err
+		}
+		cmdrun.RunHTTPOperation(op)
+
+		return nil
+	},
 }
 
 // Command: `vf-admin location list`
@@ -34,7 +45,10 @@ var locationListCmd = &cobra.Command{
 	Use:   "list",
 	Short: "Retrieve a list of locations",
 	Args:  cobra.ExactArgs(0),
-	Run:   list.CmdRun,
+	Run: func(cmd *cobra.Command, args []string) {
+		var op list.HTTPOperation
+		cmdrun.RunHTTPOperation(op)
+	},
 }
 
 // Command: `vf-admin location add <id>`
@@ -46,7 +60,75 @@ var locationAddCmd = &cobra.Command{
 			$ vf-admin location add --active 1 --name "Guelph Hospital" --postcode "N1E4J4" --url "http://www.gghorg.ca" --phone "(519) 822-5350" --notes "Please call ahead to make an appointment." --tags "Guelph, Appointment" --organization 23 --address 352
 	`),
 	Args: cobra.ExactArgs(0),
-	RunE: add.CmdRunE,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		// Retrieve the authentication key from configuration file
+		key, kErr := utils.GetKeyFromProfile(cmd)
+		if kErr != nil {
+			color.Red(kErr.Error())
+			return nil
+		}
+
+		// Retrieve the flags to be placed inside the HTTP body
+		flags := cmd.Flags()
+		active, _ := flags.GetInt("active")
+		name, _ := flags.GetString("name")
+		var postcode, phone, notes, url, tags *string
+		var org, address *int
+		if flags.Changed("postcode") {
+			t, _ := flags.GetString("postcode")
+			postcode = &t
+		} else {
+			postcode = nil
+		}
+		if flags.Changed("phone") {
+			t, _ := flags.GetString("phone")
+			phone = &t
+		} else {
+			phone = nil
+		}
+		if flags.Changed("notes") {
+			t, _ := flags.GetString("notes")
+			notes = &t
+		} else {
+			notes = nil
+		}
+		if flags.Changed("url") {
+			t, _ := flags.GetString("url")
+			url = &t
+		} else {
+			url = nil
+		}
+		if flags.Changed("tags") {
+			t, _ := flags.GetString("tags")
+			tags = &t
+		} else {
+			tags = nil
+		}
+		if flags.Changed("organization") {
+			t, _ := flags.GetInt("organization")
+			org = &t
+		} else {
+			org = nil
+		}
+		if flags.Changed("address") {
+			t, _ := flags.GetInt("address")
+			address = &t
+		} else {
+			address = nil
+		}
+
+		var op add.HTTPOperation
+		op.SetAuthKey(key)
+		if err := op.SetRequestURLArguments(args); err != nil {
+			return err
+		}
+		if err := op.SetRequestBody(active, name, postcode, phone, notes, url, tags, org, address); err != nil {
+			return err
+		}
+		cmdrun.RunHTTPOperation(op)
+
+		return nil
+	},
 }
 
 // Command: `vf-admin location update <id>`
@@ -58,7 +140,75 @@ var locationUpdateCmd = &cobra.Command{
 	$ vf-admin location update 15 --active 1 --name "Guelph Hospital" --postcode "N1E4J4" --url "http://www.gghorg.ca" --phone "(519) 822-5350" --notes "Please call ahead to make an appointment." --tags "Guelph, Appointment" --organization 23 --address 352
 	`),
 	Args: cobra.ExactArgs(1),
-	RunE: update.CmdRunE,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		// Retrieve the authentication key from configuration file
+		key, kErr := utils.GetKeyFromProfile(cmd)
+		if kErr != nil {
+			color.Red(kErr.Error())
+			return nil
+		}
+
+		// Retrieve the flags to be placed inside the HTTP body
+		flags := cmd.Flags()
+		active, _ := flags.GetInt("active")
+		name, _ := flags.GetString("name")
+		var postcode, phone, notes, url, tags *string
+		var org, address *int
+		if flags.Changed("postcode") {
+			t, _ := flags.GetString("postcode")
+			postcode = &t
+		} else {
+			postcode = nil
+		}
+		if flags.Changed("phone") {
+			t, _ := flags.GetString("phone")
+			phone = &t
+		} else {
+			phone = nil
+		}
+		if flags.Changed("notes") {
+			t, _ := flags.GetString("notes")
+			notes = &t
+		} else {
+			notes = nil
+		}
+		if flags.Changed("url") {
+			t, _ := flags.GetString("url")
+			url = &t
+		} else {
+			url = nil
+		}
+		if flags.Changed("tags") {
+			t, _ := flags.GetString("tags")
+			tags = &t
+		} else {
+			tags = nil
+		}
+		if flags.Changed("organization") {
+			t, _ := flags.GetInt("organization")
+			org = &t
+		} else {
+			org = nil
+		}
+		if flags.Changed("address") {
+			t, _ := flags.GetInt("address")
+			address = &t
+		} else {
+			address = nil
+		}
+
+		var op update.HTTPOperation
+		op.SetAuthKey(key)
+		if err := op.SetRequestURLArguments(args); err != nil {
+			return err
+		}
+		if err := op.SetRequestBody(active, name, postcode, phone, notes, url, tags, org, address); err != nil {
+			return err
+		}
+		cmdrun.RunHTTPOperation(op)
+
+		return nil
+	},
 }
 
 // Command: `vf-admin location remove <id>`
@@ -70,7 +220,23 @@ var locationRemoveCmd = &cobra.Command{
 			$ vf-admin location remove 8
 	`),
 	Args: cobra.ExactArgs(1),
-	RunE: remove.CmdRunE,
+	RunE: func(cmd *cobra.Command, args []string) error {
+		// Retrieve the authentication key from configuration file
+		key, kErr := utils.GetKeyFromProfile(cmd)
+		if kErr != nil {
+			color.Red(kErr.Error())
+			return nil
+		}
+
+		var op remove.HTTPOperation
+		op.SetAuthKey(key)
+		if err := op.SetRequestURLArguments(args); err != nil {
+			return err
+		}
+		cmdrun.RunHTTPOperation(op)
+
+		return nil
+	},
 }
 
 func init() {
