@@ -1,6 +1,6 @@
 ## vf-admin address
 
-Manage addresss
+Manage addresses
 
 ### Options
 

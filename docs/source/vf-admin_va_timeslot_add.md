@@ -6,6 +6,14 @@ Add a new timeslot for vaccine availability
 vf-admin va timeslot add [flags]
 ```
 
+### Examples
+
+```
+# Add a new timeslot 10 for a vaccine availability c7bc794c-9905-4588-81e6-e557e1a494c4 with time "2006-01-02T15:04:05Z"
+$ vf-admin va timeslot add c7bc794c-9905-4588-81e6-e557e1a494c4 --time "2006-01-02T15:04:05Z"
+
+```
+
 ### Options
 
 ```

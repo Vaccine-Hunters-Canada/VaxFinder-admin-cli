@@ -28,5 +28,5 @@ $ vf-admin address get 1
 
 ### SEE ALSO
 
-* [vf-admin address](vf-admin_address.md)	 - Manage addresss
+* [vf-admin address](vf-admin_address.md)	 - Manage addresses
 

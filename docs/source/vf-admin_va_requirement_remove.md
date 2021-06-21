@@ -9,7 +9,7 @@ vf-admin va requirement remove [flags]
 ### Examples
 
 ```
-# Remove vaccine availability c7bc794c-9905-4588-81e6-e557e1a494c4 and requirement id a9620b24-0dc4-4c7d-8ca2-a9b06d627d82 
+# Remove vaccine availability c7bc794c-9905-4588-81e6-e557e1a494c4 and requirement id a9620b24-0dc4-4c7d-8ca2-a9b06d627d82
 $ vf-admin va requirement remove c7bc794c-9905-4588-81e6-e557e1a494c4 a9620b24-0dc4-4c7d-8ca2-a9b06d627d82
 
 ```

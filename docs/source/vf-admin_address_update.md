@@ -10,7 +10,7 @@ vf-admin address update [flags]
 
 ```
 # Update the address with id 20 to have province "Ontario", postal code "K1A0A9", latitude "45.424807" and longitude "-75.699234"
-$ vf-admin address update 20 --province "Ontario" --postcode "K1A0A9" --latitude "45.424807"--longitude "-75.699234"
+$ vf-admin address update 20 --province "Ontario" --postcode "K1A0A9" --latitude "45.424807" --longitude "-75.699234"
 
 ```
 
@@ -35,5 +35,5 @@ $ vf-admin address update 20 --province "Ontario" --postcode "K1A0A9" --latitude
 
 ### SEE ALSO
 
-* [vf-admin address](vf-admin_address.md)	 - Manage addresss
+* [vf-admin address](vf-admin_address.md)	 - Manage addresses
 

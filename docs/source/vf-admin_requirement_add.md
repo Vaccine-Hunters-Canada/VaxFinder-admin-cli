@@ -9,7 +9,7 @@ vf-admin requirement add [flags]
 ### Examples
 
 ```
-# Add a new requirement with name "18+" and description "Any individual older than 18 years of age.".
+# HTTPOperation a new requirement with name "18+" and description "Any individual older than 18 years of age.".
 $ vf-admin requirement add --name "18+" --description "Any individual older than 18 years of age."
 
 ```
