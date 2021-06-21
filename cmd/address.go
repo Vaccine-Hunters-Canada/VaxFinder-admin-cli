@@ -16,8 +16,9 @@ import (
 
 // Command: `vf-admin address`
 var addressCmd = &cobra.Command{
-	Use:   "address",
-	Short: "Manage addresses",
+	Use:     "address",
+	Aliases: []string{"addr"},
+	Short:   "Manage addresses",
 }
 
 // Command: `vf-admin address get <id>`
@@ -42,10 +43,11 @@ var addressGetCmd = &cobra.Command{
 
 // Command: `vf-admin address list`
 var addressListCmd = &cobra.Command{
-	Use:   "list",
-	Short: "Retrieve a list of addresss",
+	Use:     "list",
+	Aliases: []string{"ls"},
+	Short:   "Retrieve a list of addresses",
 	Example: heredoc.Doc(`
-			# List the addresss.
+			# List the addresses.
 			$ vf-admin address list
 	`),
 	Args: cobra.ExactArgs(0),
@@ -114,8 +116,9 @@ var addressAddCmd = &cobra.Command{
 
 // Command: `vf-admin address update <id>`
 var addressUpdateCmd = &cobra.Command{
-	Use:   "update",
-	Short: "Update an address with a specified id",
+	Use:     "update",
+	Aliases: []string{"up"},
+	Short:   "Update an address with a specified id",
 	Example: heredoc.Doc(`
 			# Update the address with id 20 to have province "Ontario", postal code "K1A0A9", latitude "45.424807" and longitude "-75.699234"
 			$ vf-admin address update 20 --province "Ontario" --postcode "K1A0A9" --latitude "45.424807" --longitude "-75.699234"
@@ -171,8 +174,9 @@ var addressUpdateCmd = &cobra.Command{
 
 // Command: `vf-admin address remove <id>`
 var addressRemoveCmd = &cobra.Command{
-	Use:   "remove",
-	Short: "Remove an address with a specified id",
+	Use:     "remove",
+	Aliases: []string{"rm"},
+	Short:   "Remove an address with a specified id",
 	Example: heredoc.Doc(`
 			# Remove the address with id 20.
 			$ vf-admin address remove 20

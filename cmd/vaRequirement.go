@@ -15,14 +15,16 @@ import (
 
 // Command: `vf-admin va requirement`
 var vaRequirementCmd = &cobra.Command{
-	Use:   "requirement",
-	Short: "Manage requirements for vaccine availability",
+	Use:     "requirement",
+	Aliases: []string{"req"},
+	Short:   "Manage requirements for vaccine availability",
 }
 
 // Command: `vf-admin va requirement list <va-id>`
 var vaRequirementListCmd = &cobra.Command{
-	Use:   "list",
-	Short: "Retrieve a list of requirements for a vaccine availability",
+	Use:     "list",
+	Aliases: []string{"ls"},
+	Short:   "Retrieve a list of requirements for a vaccine availability",
 	Example: heredoc.Doc(`
 			# List the requirements for a vaccine availability.
 			$ vf-admin va requirement list <va-id>
@@ -77,8 +79,9 @@ var vaRequirementAddCmd = &cobra.Command{
 
 // Command: `vf-admin va update <va-id> <requirement-id>`
 var vaRequirementUpdateCmd = &cobra.Command{
-	Use:   "update",
-	Short: "Update a requirement for vaccine availability with specified ids",
+	Use:     "update",
+	Aliases: []string{"up"},
+	Short:   "Update a requirement for vaccine availability with specified ids",
 	Example: heredoc.Doc(`
 			# update vaccine availability c7bc794c-9905-4588-81e6-e557e1a494c4 and requirement id a9620b24-0dc4-4c7d-8ca2-a9b06d627d82 with requirement id 10 and active false
 			$ vf-admin va requirement update c7bc794c-9905-4588-81e6-e557e1a494c4 a9620b24-0dc4-4c7d-8ca2-a9b06d627d82 --requirement 10 --active=false
@@ -116,8 +119,9 @@ var vaRequirementUpdateCmd = &cobra.Command{
 
 // Command: `vf-admin va remove <va-id> <requirement-id>`
 var vaRequirementRemoveCmd = &cobra.Command{
-	Use:   "remove",
-	Short: "Remove a requirement from a vaccine availability with specified ids",
+	Use:     "remove",
+	Aliases: []string{"rm"},
+	Short:   "Remove a requirement from a vaccine availability with specified ids",
 	Example: heredoc.Doc(`
 			# Remove vaccine availability c7bc794c-9905-4588-81e6-e557e1a494c4 and requirement id a9620b24-0dc4-4c7d-8ca2-a9b06d627d82
 			$ vf-admin va requirement remove c7bc794c-9905-4588-81e6-e557e1a494c4 a9620b24-0dc4-4c7d-8ca2-a9b06d627d82

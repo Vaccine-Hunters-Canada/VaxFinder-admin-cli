@@ -12,9 +12,10 @@ import (
 
 // Command: `vf-admin configure`
 var configureCmd = &cobra.Command{
-	Use:   "configure",
-	Args:  cobra.ExactArgs(0),
-	Short: "Configure a named profile with credentials",
+	Use:     "configure",
+	Aliases: []string{"config"},
+	Args:    cobra.ExactArgs(0),
+	Short:   "Configure a named profile with credentials",
 	Long: heredoc.Doc(`
 			Configure the default profile or simply create new named profiles with an authentication key.
 

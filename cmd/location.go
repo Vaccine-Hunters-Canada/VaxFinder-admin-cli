@@ -16,8 +16,9 @@ import (
 
 // Command: `vf-admin location`
 var locationCmd = &cobra.Command{
-	Use:   "location",
-	Short: "Manage locations",
+	Use:     "location",
+	Aliases: []string{"loc"},
+	Short:   "Manage locations",
 }
 
 // Command: `vf-admin location get <id>`
@@ -42,9 +43,10 @@ var locationGetCmd = &cobra.Command{
 
 // Command: `vf-admin location list`
 var locationListCmd = &cobra.Command{
-	Use:   "list",
-	Short: "Retrieve a list of locations",
-	Args:  cobra.ExactArgs(0),
+	Use:     "list",
+	Aliases: []string{"ls"},
+	Short:   "Retrieve a list of locations",
+	Args:    cobra.ExactArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
 		var op list.HTTPOperation
 		cmdrun.RunHTTPOperation(op)
@@ -133,8 +135,9 @@ var locationAddCmd = &cobra.Command{
 
 // Command: `vf-admin location update <id>`
 var locationUpdateCmd = &cobra.Command{
-	Use:   "update",
-	Short: "Update a location with a specified id",
+	Use:     "update",
+	Aliases: []string{"up"},
+	Short:   "Update a location with a specified id",
 	Example: heredoc.Doc(`
 	# Update the location with id 15 to be active, have name "Guelph Hospital", postal code "N1E 4J4", website URL "http://www.gghorg.ca/", phone "(519) 822-5350", notes "Please call ahead to make an appointment.", tags "Guelph, Appointment", organization id 23 and address id 352.
 	$ vf-admin location update 15 --active 1 --name "Guelph Hospital" --postcode "N1E4J4" --url "http://www.gghorg.ca" --phone "(519) 822-5350" --notes "Please call ahead to make an appointment." --tags "Guelph, Appointment" --organization 23 --address 352
@@ -213,8 +216,9 @@ var locationUpdateCmd = &cobra.Command{
 
 // Command: `vf-admin location remove <id>`
 var locationRemoveCmd = &cobra.Command{
-	Use:   "remove",
-	Short: "Remove a location with a specified id",
+	Use:     "remove",
+	Aliases: []string{"rm"},
+	Short:   "Remove a location with a specified id",
 	Example: heredoc.Doc(`
 			# Remove the location with id 8.
 			$ vf-admin location remove 8

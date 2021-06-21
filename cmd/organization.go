@@ -16,8 +16,9 @@ import (
 
 // Command: `vf-admin organization`
 var organizationCmd = &cobra.Command{
-	Use:   "organization",
-	Short: "Manage organizations",
+	Use:     "organization",
+	Aliases: []string{"org"},
+	Short:   "Manage organizations",
 }
 
 // Command: `vf-admin organization get <id>`
@@ -42,8 +43,9 @@ var organizationGetCmd = &cobra.Command{
 
 // Command: `vf-admin organization list`
 var organizationListCmd = &cobra.Command{
-	Use:   "list",
-	Short: "Retrieve a list of organizations",
+	Use:     "list",
+	Aliases: []string{"ls"},
+	Short:   "Retrieve a list of organizations",
 	Example: heredoc.Doc(`
 			# List the organizations.
 			$ vf-admin organization list
@@ -111,8 +113,9 @@ var organizationAddCmd = &cobra.Command{
 
 // Command: `vf-admin organization update <id>`
 var organizationUpdateCmd = &cobra.Command{
-	Use:   "update",
-	Short: "Update an organization with a specified id",
+	Use:     "update",
+	Aliases: []string{"up"},
+	Short:   "Update an organization with a specified id",
 	Example: heredoc.Doc(`
 			# Update the organization with id 20 to have short name "WHO", full name "World Health Organization", description "The World Health Organization is a specialized agency of the United Nations responsible for international public health." and url "https://www.who.int/"
 			$ vf-admin organization update 20 --shortName WHO --fullName "World Health Organization" --description "The World Health Organization is a specialized agency of the United Nations responsible for international public health." --url "https://www.who.int/"
@@ -165,8 +168,9 @@ var organizationUpdateCmd = &cobra.Command{
 
 // Command: `vf-admin organization remove <id>`
 var organizationRemoveCmd = &cobra.Command{
-	Use:   "remove",
-	Short: "Remove an organization with a specified id",
+	Use:     "remove",
+	Aliases: []string{"rm"},
+	Short:   "Remove an organization with a specified id",
 	Example: heredoc.Doc(`
 			# Remove the organization with id 20.
 			$ vf-admin organization remove 20
