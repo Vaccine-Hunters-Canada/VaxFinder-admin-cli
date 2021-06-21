@@ -34,7 +34,9 @@ var organizationGetCmd = &cobra.Command{
 		if err := op.SetRequestURLArguments(args); err != nil {
 			return err
 		}
-		cmdrun.RunHTTPOperation(op)
+
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 
 		return nil
 	},
@@ -51,7 +53,8 @@ var organizationListCmd = &cobra.Command{
 	Args: cobra.ExactArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
 		var op list.HTTPOperation
-		cmdrun.RunHTTPOperation(op)
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 	},
 }
 
@@ -103,7 +106,9 @@ var organizationAddCmd = &cobra.Command{
 		if err := op.SetRequestBody(shortName, fullName, description, url); err != nil {
 			return err
 		}
-		cmdrun.RunHTTPOperation(op)
+
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 
 		return nil
 	},
@@ -157,7 +162,9 @@ var organizationUpdateCmd = &cobra.Command{
 		if err := op.SetRequestBody(shortName, fullName, description, url); err != nil {
 			return err
 		}
-		cmdrun.RunHTTPOperation(op)
+
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 
 		return nil
 	},
@@ -185,13 +192,16 @@ var organizationRemoveCmd = &cobra.Command{
 		if err := op.SetRequestURLArguments(args); err != nil {
 			return err
 		}
-		cmdrun.RunHTTPOperation(op)
+
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 
 		return nil
 	},
 }
 
 func init() {
+	organizationCmd.PersistentFlags().Bool("dry-run", false, "print the HTTP request that would be sent to the server as a cURL command")
 	RootCmd.AddCommand(organizationCmd)
 
 	// Get command

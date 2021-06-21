@@ -33,7 +33,9 @@ var vaTimeslotListCmd = &cobra.Command{
 		var op list.HTTPOperation
 
 		op.SetRequestURLArguments(args)
-		cmdrun.RunHTTPOperation(op)
+
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 
 		return nil
 	},
@@ -76,7 +78,9 @@ var vaTimeslotAddCmd = &cobra.Command{
 		}
 
 		op.SetRequestURLArguments(args)
-		cmdrun.RunHTTPOperation(op)
+
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 
 		return nil
 	},
@@ -133,7 +137,8 @@ var vaTimeslotUpdateCmd = &cobra.Command{
 			return err
 		}
 
-		cmdrun.RunHTTPOperation(op)
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 
 		return nil
 	},
@@ -161,7 +166,8 @@ var vaTimeslotRemoveCmd = &cobra.Command{
 		op.SetRequestURLArguments(args)
 		op.SetAuthKey(key)
 
-		cmdrun.RunHTTPOperation(op)
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 
 		return nil
 	},

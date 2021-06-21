@@ -36,7 +36,9 @@ var vaGetCmd = &cobra.Command{
 		if err := op.SetRequestURLArguments(args); err != nil {
 			return err
 		}
-		cmdrun.RunHTTPOperation(op)
+
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 
 		return nil
 	},
@@ -69,7 +71,9 @@ var vaListCmd = &cobra.Command{
 		if err := op.SetRequestURLQueryParameters(postalCode, minDate); err != nil {
 			return err
 		}
-		cmdrun.RunHTTPOperation(op)
+
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 
 		return nil
 	},
@@ -134,7 +138,9 @@ var vaAddCmd = &cobra.Command{
 		if err := op.SetRequestBody(date, inputType, location, numberAvailable, numberTotal, tags, vaccine); err != nil {
 			return err
 		}
-		cmdrun.RunHTTPOperation(op)
+
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 
 		return nil
 	},
@@ -204,7 +210,8 @@ var vaUpdateCmd = &cobra.Command{
 			return err
 		}
 
-		cmdrun.RunHTTPOperation(op)
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 
 		return nil
 	},
@@ -234,13 +241,15 @@ var vaRemoveCmd = &cobra.Command{
 		}
 
 		op.SetAuthKey(key)
-		cmdrun.RunHTTPOperation(op)
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 
 		return nil
 	},
 }
 
 func init() {
+	vaCmd.PersistentFlags().Bool("dry-run", false, "print the HTTP request that would be sent to the server as a cURL command")
 	RootCmd.AddCommand(vaCmd)
 
 	// Get command

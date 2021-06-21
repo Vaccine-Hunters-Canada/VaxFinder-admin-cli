@@ -1,5 +1,7 @@
 package api
 
+import "moul.io/http2curl"
+
 // HTTPOperation abstracts away logic for HTTP Operations for those that implements it
 type HTTPOperation interface {
 	SetAuthKey(key string)
@@ -7,4 +9,5 @@ type HTTPOperation interface {
 	GetDetails() (string, string, string)
 	GetVerboseResponseFieldNames() []string
 	GetResponseAsArray() ([][]string, error)
+	GetAsCurlCommand(withKey bool) (*http2curl.CurlCommand, error)
 }

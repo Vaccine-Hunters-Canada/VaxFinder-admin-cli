@@ -34,7 +34,11 @@ var vaRequirementListCmd = &cobra.Command{
 		if err := op.SetRequestURLArguments(args); err != nil {
 			return err
 		}
-		cmdrun.RunHTTPOperation(op)
+		op.SetRequestURLArguments(args)
+
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
+
 		return nil
 	},
 }
@@ -69,7 +73,9 @@ var vaRequirementAddCmd = &cobra.Command{
 		}
 
 		op.SetRequestURLArguments(args)
-		cmdrun.RunHTTPOperation(op)
+
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 
 		return nil
 	},
@@ -108,7 +114,8 @@ var vaRequirementUpdateCmd = &cobra.Command{
 			return err
 		}
 
-		cmdrun.RunHTTPOperation(op)
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 
 		return nil
 	},
@@ -136,7 +143,8 @@ var vaRequirementRemoveCmd = &cobra.Command{
 		op.SetRequestURLArguments(args)
 		op.SetAuthKey(key)
 
-		cmdrun.RunHTTPOperation(op)
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 
 		return nil
 	},
