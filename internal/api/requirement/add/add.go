@@ -2,8 +2,10 @@ package add
 
 import (
 	"context"
+	"moul.io/http2curl"
 	"strconv"
 	"vf-admin/internal/api"
+	"vf-admin/internal/utils"
 )
 
 // HTTPOperation abstracts away the current HTTP operation
@@ -64,4 +66,18 @@ func (HTTPOperation) GetResponseAsArray() ([][]string, error) {
 	}
 
 	return nil, nil
+}
+
+// GetAsCurlCommand returns the HTTP operation as a cURL command
+func (HTTPOperation) GetAsCurlCommand(withKey bool) (*http2curl.CurlCommand, error) {
+	// Create the HTTP Request (struct)
+	req, rErr := api.NewCreateRequirementApiV1RequirementsPostRequest(utils.GetBaseURL(), body)
+	if rErr != nil {
+		return nil, rErr
+	}
+	// Attach auth key to request if it exists
+	if authKey != "" && withKey {
+		req.Header.Set("Authorization", "Bearer "+authKey)
+	}
+	return http2curl.GetCurlCommand(req)
 }

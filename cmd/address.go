@@ -35,7 +35,9 @@ var addressGetCmd = &cobra.Command{
 		if err := op.SetRequestURLArguments(args); err != nil {
 			return err
 		}
-		cmdrun.RunHTTPOperation(op)
+
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 
 		return nil
 	},
@@ -53,7 +55,8 @@ var addressListCmd = &cobra.Command{
 	Args: cobra.ExactArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
 		var op list.HTTPOperation
-		cmdrun.RunHTTPOperation(op)
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 	},
 }
 
@@ -108,7 +111,9 @@ var addressAddCmd = &cobra.Command{
 		if err := op.SetRequestBody(province, postcode, latitude, longitude, line1, line2, city); err != nil {
 			return err
 		}
-		cmdrun.RunHTTPOperation(op)
+
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 
 		return nil
 	},
@@ -166,7 +171,9 @@ var addressUpdateCmd = &cobra.Command{
 		if err := op.SetRequestBody(province, postcode, latitude, longitude, line1, line2, city); err != nil {
 			return err
 		}
-		cmdrun.RunHTTPOperation(op)
+
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 
 		return nil
 	},
@@ -195,13 +202,16 @@ var addressRemoveCmd = &cobra.Command{
 		if err := op.SetRequestURLArguments(args); err != nil {
 			return err
 		}
-		cmdrun.RunHTTPOperation(op)
+
+		dryRun, _ := cmd.Flags().GetBool("dry-run")
+		cmdrun.RunHTTPOperation(op, dryRun)
 
 		return nil
 	},
 }
 
 func init() {
+	addressCmd.PersistentFlags().Bool("dry-run", false, "print the HTTP request that would be sent to the server as a cURL command")
 	RootCmd.AddCommand(addressCmd)
 
 	// Get command
