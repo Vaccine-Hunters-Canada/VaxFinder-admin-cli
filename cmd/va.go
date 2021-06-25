@@ -44,8 +44,9 @@ var vaGetCmd = &cobra.Command{
 
 // Command: `vf-admin va list`
 var vaListCmd = &cobra.Command{
-	Use:   "list",
-	Short: "Retrieve a list of vaccine availabilities within the vicinity of a postal code",
+	Use:     "list",
+	Aliases: []string{"ls"},
+	Short:   "Retrieve a list of vaccine availabilities within the vicinity of a postal code",
 	Example: heredoc.Doc(`
 			# List the vaccine availabilities within the vicinity of a postal code.
 			$ vf-admin va list --postcode K1A
@@ -142,8 +143,9 @@ var vaAddCmd = &cobra.Command{
 
 // Command: `vf-admin va update <id>`
 var vaUpdateCmd = &cobra.Command{
-	Use:   "update",
-	Short: "Update a vaccine availability with a specified id",
+	Use:     "update",
+	Aliases: []string{"up"},
+	Short:   "Update a vaccine availability with a specified id",
 	Example: heredoc.Doc(`
 			# Update vaccine availability id 7d7488e4-cc26-434d-85c4-b7df2f7e3171to be on 2021-05-25 with 3 available input type 1 location 1651 and tags vhc
 			$ vf-admin va update 7d7488e4-cc26-434d-85c4-b7df2f7e3171 --date "2021-05-25" --numberavailable 3 --inputtype 1 --location 1651 --tags vhc
@@ -212,8 +214,9 @@ var vaUpdateCmd = &cobra.Command{
 
 // Command: `vf-admin va remove <id>`
 var vaRemoveCmd = &cobra.Command{
-	Use:   "remove",
-	Short: "Remove a vaccine availability with a specified id",
+	Use:     "remove",
+	Aliases: []string{"rm"},
+	Short:   "Remove a vaccine availability with a specified id",
 	Example: heredoc.Doc(`
 			# Remove vaccine availability id 7d7488e4-cc26-434d-85c4-b7df2f7e3171
 			$ vf-admin va remove 7d7488e4-cc26-434d-85c4-b7df2f7e3171

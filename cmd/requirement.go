@@ -17,8 +17,9 @@ import (
 
 // Command: `vf-admin requirement`
 var requirementCmd = &cobra.Command{
-	Use:   "requirement",
-	Short: "Manage requirements",
+	Use:     "requirement",
+	Aliases: []string{"req"},
+	Short:   "Manage requirements",
 }
 
 // Command: `vf-admin requirement get <id>`
@@ -43,9 +44,10 @@ var requirementGetCmd = &cobra.Command{
 
 // Command: `vf-admin requirement list`
 var requirementListCmd = &cobra.Command{
-	Use:   "list",
-	Short: "Retrieve a list of requirements",
-	Args:  cobra.ExactArgs(0),
+	Use:     "list",
+	Aliases: []string{"ls"},
+	Short:   "Retrieve a list of requirements",
+	Args:    cobra.ExactArgs(0),
 	Run: func(cmd *cobra.Command, args []string) {
 		var op list.HTTPOperation
 		cmdrun.RunHTTPOperation(op)
@@ -89,8 +91,9 @@ var requirementAddCmd = &cobra.Command{
 
 // Command: `vf-admin requirement update <id>`
 var requirementUpdateCmd = &cobra.Command{
-	Use:   "update",
-	Short: "Update a requirement with a specified id",
+	Use:     "update",
+	Aliases: []string{"up"},
+	Short:   "Update a requirement with a specified id",
 	Example: heredoc.Doc(`
 		# Update the requirement with id 8 to have name "High-Risk" and description "Highest- and High-Risk Health Conditions.".
 		$ vf-admin requirement update 8 --name "High-Risk" --description "Highest- and High-Risk Health Conditions."
@@ -124,8 +127,9 @@ var requirementUpdateCmd = &cobra.Command{
 
 // Command: `vf-admin requirement remove <id>`
 var requirementRemoveCmd = &cobra.Command{
-	Use:   "remove",
-	Short: "Remove a requirement with a specified id",
+	Use:     "remove",
+	Aliases: []string{"rm"},
+	Short:   "Remove a requirement with a specified id",
 	Example: heredoc.Doc(`
 		# Remove the requirement with id 8.
 		$ vf-admin requirement remove 8
