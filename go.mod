@@ -17,5 +17,5 @@ require (
 	github.com/theckman/yacspin v0.8.0
 	golang.org/x/net v0.0.0-20210405180319-a5a99cb37ef4 // indirect
 	golang.org/x/sys v0.0.0-20210511113859-b0526f3d8744 // indirect
-	moul.io/http2curl v1.0.0 // indirect
+	moul.io/http2curl v1.0.0
 )

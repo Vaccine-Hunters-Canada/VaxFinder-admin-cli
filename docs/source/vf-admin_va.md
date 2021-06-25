@@ -5,7 +5,8 @@ Manage vaccine availabilities
 ### Options
 
 ```
-  -h, --help   help for va
+      --dry-run   print the HTTP request that would be sent to the server as a cURL command
+  -h, --help      help for va
 ```
 
 ### Options inherited from parent commands

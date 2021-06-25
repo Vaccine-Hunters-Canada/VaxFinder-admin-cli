@@ -30,6 +30,7 @@ $ vf-admin address update 20 --province "Ontario" --postcode "K1A0A9" --latitude
 ### Options inherited from parent commands
 
 ```
+      --dry-run          print the HTTP request that would be sent to the server as a cURL command
       --profile string   specifies the named profile to use for this command (default "default")
 ```
 

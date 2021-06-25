@@ -23,6 +23,7 @@ $ vf-admin va get 014cc133-484f-4320-be3b-444e758b64a7
 ### Options inherited from parent commands
 
 ```
+      --dry-run          print the HTTP request that would be sent to the server as a cURL command
       --profile string   specifies the named profile to use for this command (default "default")
 ```
 

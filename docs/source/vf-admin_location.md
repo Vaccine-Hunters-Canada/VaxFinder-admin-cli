@@ -5,7 +5,8 @@ Manage locations
 ### Options
 
 ```
-  -h, --help   help for location
+      --dry-run   print the HTTP request that would be sent to the server as a cURL command
+  -h, --help      help for location
 ```
 
 ### Options inherited from parent commands

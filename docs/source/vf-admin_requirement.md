@@ -5,7 +5,8 @@ Manage requirements
 ### Options
 
 ```
-  -h, --help   help for requirement
+      --dry-run   print the HTTP request that would be sent to the server as a cURL command
+  -h, --help      help for requirement
 ```
 
 ### Options inherited from parent commands

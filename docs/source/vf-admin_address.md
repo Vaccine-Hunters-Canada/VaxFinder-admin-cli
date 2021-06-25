@@ -5,7 +5,8 @@ Manage addresses
 ### Options
 
 ```
-  -h, --help   help for address
+      --dry-run   print the HTTP request that would be sent to the server as a cURL command
+  -h, --help      help for address
 ```
 
 ### Options inherited from parent commands
