@@ -1,6 +1,6 @@
 ## vf-admin address list
 
-Retrieve a list of addresss
+Retrieve a list of addresses
 
 ```
 vf-admin address list [flags]
@@ -9,7 +9,7 @@ vf-admin address list [flags]
 ### Examples
 
 ```
-# List the addresss.
+# List the addresses.
 $ vf-admin address list
 
 ```
