@@ -62,7 +62,13 @@ func (HTTPOperation) GetResponseAsArray() ([][]string, error) {
 		json := res.JSON200
 		return [][]string{
 			{
-				strconv.Itoa(json.Id), utils.CoalesceString(json.Line1), utils.CoalesceString(json.Line2), utils.CoalesceString(json.City), json.Postcode, json.Province /*json.Latitude.String(), json.Longitude.String(),*/, json.CreatedAt.String(),
+				strconv.Itoa(json.Id),
+				utils.CoalesceString(json.Line1),
+				utils.CoalesceString(json.Line2),
+				utils.CoalesceString(json.City),
+				json.Postcode,
+				json.Province /*json.Latitude.String(), json.Longitude.String(),*/,
+				utils.GetFromNow(json.CreatedAt),
 			},
 		}, nil
 	}

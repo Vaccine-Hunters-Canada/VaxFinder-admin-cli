@@ -60,7 +60,10 @@ func (HTTPOperation) GetResponseAsArray() ([][]string, error) {
 	if res.JSON200 != nil {
 		return [][]string{
 			{
-				strconv.Itoa(res.JSON200.Id), res.JSON200.Name, res.JSON200.Description, res.JSON200.CreatedAt.String(),
+				strconv.Itoa(res.JSON200.Id),
+				res.JSON200.Name,
+				res.JSON200.Description,
+				utils.GetFromNow(res.JSON200.CreatedAt),
 			},
 		}, nil
 	}

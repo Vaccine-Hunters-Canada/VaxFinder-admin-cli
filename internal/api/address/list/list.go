@@ -54,7 +54,13 @@ func (HTTPOperation) GetResponseAsArray() ([][]string, error) {
 		var data [][]string
 		for _, row := range *res.JSON200 {
 			data = append(data, []string{
-				strconv.Itoa(row.Id), utils.CoalesceString(row.Line1), utils.CoalesceString(row.Line2), utils.CoalesceString(row.City), row.Postcode, row.Province /*row.Latitude.String(), row.Longitude.String(),*/, row.CreatedAt.String(),
+				strconv.Itoa(row.Id),
+				utils.CoalesceString(row.Line1),
+				utils.CoalesceString(row.Line2),
+				utils.CoalesceString(row.City),
+				row.Postcode,
+				row.Province /*row.Latitude.String(), row.Longitude.String(),*/,
+				utils.GetFromNow(row.CreatedAt),
 			})
 		}
 		return data, nil

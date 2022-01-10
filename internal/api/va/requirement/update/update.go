@@ -67,7 +67,13 @@ func (HTTPOperation) GetResponseAsArray() ([][]string, error) {
 		json := res.JSON200
 		return [][]string{
 			{
-				json.Id, json.VaccineAvailability, strconv.Itoa(json.Requirement), strconv.FormatBool(json.Active), json.Name, json.Description, json.CreatedAt.String(),
+				json.Id,
+				json.VaccineAvailability,
+				strconv.Itoa(json.Requirement),
+				strconv.FormatBool(json.Active),
+				json.Name,
+				json.Description,
+				utils.GetFromNow(json.CreatedAt),
 			},
 		}, nil
 	}

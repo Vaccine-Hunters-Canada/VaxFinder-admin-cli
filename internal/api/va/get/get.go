@@ -71,7 +71,7 @@ func (HTTPOperation) GetResponseAsArray() ([][]string, error) {
 		return [][]string{
 			{
 				json.Id,
-				json.Date.String(),
+				utils.GetFromNow(json.Date),
 				strconv.Itoa(json.NumberAvailable),
 				utils.CoalesceInt(json.NumberTotal),
 				utils.CoalesceInt(json.Vaccine),
@@ -80,7 +80,7 @@ func (HTTPOperation) GetResponseAsArray() ([][]string, error) {
 				strconv.Itoa(json.Location.Id),
 				fmt.Sprintf("%d - %s %s %s %s", json.Location.Id, json.Location.Name, utils.CoalesceString(locationLine1), utils.CoalesceString(locationLine2), utils.CoalesceString(locationProvince)),
 				utils.CoalesceString(org),
-				json.CreatedAt.String(),
+				utils.GetFromNow(json.CreatedAt),
 			},
 		}, nil
 	}

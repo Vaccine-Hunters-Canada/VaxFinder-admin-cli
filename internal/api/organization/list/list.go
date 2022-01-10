@@ -59,7 +59,7 @@ func (HTTPOperation) GetResponseAsArray() ([][]string, error) {
 				utils.CoalesceString(row.FullName),
 				utils.CoalesceString(row.Description),
 				utils.CoalesceString(row.Url),
-				row.CreatedAt.String(),
+				utils.GetFromNow(row.CreatedAt),
 			})
 		}
 		return data, nil

@@ -62,7 +62,11 @@ func (HTTPOperation) GetResponseAsArray() ([][]string, error) {
 				takenAt = row.TakenAt.String()
 			}
 			data = append(data, []string{
-				row.Id, row.VaccineAvailability, row.Time.String(), takenAt, row.CreatedAt.String(),
+				row.Id,
+				row.VaccineAvailability,
+				utils.GetFromNow(row.Time),
+				takenAt,
+				utils.GetFromNow(row.CreatedAt),
 			})
 		}
 		return data, nil

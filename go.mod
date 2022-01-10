@@ -9,6 +9,7 @@ require (
 	github.com/google/uuid v1.2.0
 	github.com/mattn/go-runewidth v0.0.12 // indirect
 	github.com/mitchellh/go-homedir v1.1.0
+	github.com/nleeper/goment v1.4.2 // indirect
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/spf13/cobra v1.1.3
