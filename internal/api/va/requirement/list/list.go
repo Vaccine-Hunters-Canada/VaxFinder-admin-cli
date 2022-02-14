@@ -58,7 +58,13 @@ func (HTTPOperation) GetResponseAsArray() ([][]string, error) {
 		var data [][]string
 		for _, row := range *res.JSON200 {
 			data = append(data, []string{
-				row.Id, row.VaccineAvailability, strconv.Itoa(row.Requirement), strconv.FormatBool(row.Active), row.Name, row.Description, row.CreatedAt.String(),
+				row.Id,
+				row.VaccineAvailability,
+				strconv.Itoa(row.Requirement),
+				strconv.FormatBool(row.Active),
+				row.Name,
+				row.Description,
+				utils.GetFromNow(row.CreatedAt),
 			})
 		}
 		return data, nil

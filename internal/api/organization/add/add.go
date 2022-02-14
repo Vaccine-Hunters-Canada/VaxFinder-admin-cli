@@ -71,7 +71,7 @@ func (HTTPOperation) GetResponseAsArray() ([][]string, error) {
 				utils.CoalesceString(json.FullName),
 				utils.CoalesceString(json.Description),
 				utils.CoalesceString(json.Url),
-				json.CreatedAt.String(),
+				utils.GetFromNow(json.CreatedAt),
 			},
 		}, nil
 	}

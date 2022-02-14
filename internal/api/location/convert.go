@@ -38,7 +38,7 @@ func ConvertExpandedLocationJSONToTableRow(json *api.LocationExpandedResponse) [
 
 	data = append(data, addrString)
 
-	data = append(data, json.CreatedAt.String())
+	data = append(data, utils.GetFromNow(json.CreatedAt))
 
 	return data
 }

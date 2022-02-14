@@ -81,7 +81,7 @@ func (HTTPOperation) GetResponseAsArray() ([][]string, error) {
 
 			data = append(data, []string{
 				row.Id,
-				row.Date.String(),
+				utils.GetFromNow(row.Date),
 				strconv.Itoa(row.NumberAvailable),
 				utils.CoalesceInt(row.NumberTotal),
 				utils.CoalesceInt(row.Vaccine),
@@ -89,7 +89,7 @@ func (HTTPOperation) GetResponseAsArray() ([][]string, error) {
 				utils.CoalesceString(row.Tags),
 				fmt.Sprintf("%d - %s %s %s %s", row.Location.Id, row.Location.Name, utils.CoalesceString(locationLine1), utils.CoalesceString(locationLine2), utils.CoalesceString(locationProvince)),
 				utils.CoalesceString(org),
-				row.CreatedAt.String(),
+				utils.GetFromNow(row.CreatedAt),
 			})
 		}
 		return data, nil

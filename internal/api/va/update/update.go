@@ -72,14 +72,14 @@ func (HTTPOperation) GetResponseAsArray() ([][]string, error) {
 		return [][]string{
 			{
 				json.Id,
-				json.Date.String(),
+				utils.GetFromNow(json.Date),
 				strconv.Itoa(json.NumberAvailable),
 				utils.CoalesceInt(json.NumberTotal),
 				utils.CoalesceInt(json.Vaccine),
 				strconv.Itoa(int(json.InputType)),
 				utils.CoalesceString(json.Tags),
 				strconv.Itoa(json.Location),
-				json.CreatedAt.String(),
+				utils.GetFromNow(json.CreatedAt),
 			},
 		}, nil
 	}
